@@ -1,12 +1,12 @@
 # Tether
 
-> Pithy project description
+Our application seeks to enhance mental health support by creating a safe, anonymous platform that connects individuals facing similar challenges. By pairing users with accountability partners, we empower them to stay committed to their mental health routines while fostering meaningful connections to combat feelings of isolation. This platform encourages open dialogue and mutual understanding, enabling users to share their experiences, celebrate progress, and access a supportive community without the pressure of formal therapy. Ultimately, our mission is to enhance well-being and resilience among users, providing them with the tools they need to navigate their mental health journeys collaboratively.
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Ryan Ramirez
+  - __Scrum Master__: Taifinkaba Chowdhury
+  - __Development Team Members__: Ryan Ramirez, Taifinkaba Chowdhury, Engels Garcia
 
 ## Table of Contents
 
@@ -24,11 +24,13 @@
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node
+- Redis
+- Postgresql
+- Express
+- Knex
+- vite
+- React
 
 ## Development
 
@@ -37,12 +39,12 @@
 From within the root directory:
 
 ```sh
-<COMMANDS_HERE>
+cd frontend && npm i && npm run build && cd ../server && npm i && npm run migrate && npm run seed
 ```
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECTS_TAB).
+View the project roadmap [here](https://github.com/orgs/Thread-Weavers/projects/1).
 
 
 ## Contributing
