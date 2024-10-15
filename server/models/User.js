@@ -9,9 +9,12 @@ class User {
   // static methods to hide the hashed password of users before sending user data 
   // to the client. Since we want to keep the #passwordHash property private, we 
   // provide the isValidPassword instance method as a way to indirectly access it.
-  constructor({ id, username, password_hash }) {
+  constructor({ id, first_name, last_name, username, email, password_hash}) {
     this.id = id;
+    this.first_name = first_name;
+    this.last_name = last_name;
     this.username = username;
+    this.email = email;
     this.#passwordHash = password_hash;
   }
 
@@ -53,13 +56,13 @@ class User {
   // Hashes the given password and then creates a new user
   // in the users table. Returns the newly created user, using
   // the constructor to hide the passwordHash. 
-  static async create(username, password) {
+  static async create(first_name, last_name, username, email, password) {
     // hash the plain-text password using bcrypt before storing it in the database
     const passwordHash = await authUtils.hashPassword(password);
 
-    const query = `INSERT INTO users (username, password_hash)
-      VALUES (?, ?) RETURNING *`;
-    const result = await knex.raw(query, [username, passwordHash]);
+    const query = `INSERT INTO users (first_name, last_name, username, email, password_hash)
+      VALUES (?, ?, ?, ?, ?) RETURNING *`;
+    const result = await knex.raw(query, [first_name, last_name, username, email, passwordHash]);
     const rawUserData = result.rows[0];
     return new User(rawUserData);
   }

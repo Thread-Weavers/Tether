@@ -10,7 +10,7 @@ exports.seed = async (knex) => {
   await knex.raw('ALTER SEQUENCE users_id_seq RESTART WITH 1');
 
   // User.create(username, password)
-  await User.create('cool_cat', '1234');
-  await User.create('l33t-guy', '1234');
-  await User.create('wowow', '1234');
+  await User.create('Cathleen', 'Boyd', 'cool_cat', 'coolcatb@yahoo.com', '1234');
+  await User.create('Brandon', 'Rojas', 'l33t-guy', 'leetcodefan@gmail.com', '1234');
+  await User.create('some', 'one', 'wowow', 'burner@yopmail.com', '1234');
 };
