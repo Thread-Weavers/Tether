@@ -16,6 +16,8 @@ export default function SiteHeadingAndNav() {
             ? <>
               <li><NavLink to='/users' end={true}>Users</NavLink></li>
               <li><NavLink to={`/users/${currentUser.id}`}>{currentUser.username}</NavLink></li>
+              <li><NavLink to={`/profile/${currentUser.id}`}>Profile</NavLink></li>
+
             </>
             : <>
               <li><NavLink to='/login'>Login</NavLink></li>
