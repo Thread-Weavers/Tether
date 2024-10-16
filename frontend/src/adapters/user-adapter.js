@@ -4,8 +4,8 @@ import { fetchHandler, getPostOptions, getPatchOptions } from "../utils/fetching
 
 const baseUrl = '/api/users';
 
-export const createUser = async ({ username, password }) => {
-  return fetchHandler(baseUrl, getPostOptions({ username, password }))
+export const createUser = async ({first_name, last_name, username, email, password}) => {
+  return fetchHandler(baseUrl, getPostOptions({ first_name, last_name, username, email, password}))
 };
 
 // For this one adapter, if an error occurs, we handle it here by printing
