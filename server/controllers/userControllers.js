@@ -26,7 +26,7 @@ exports.showUser = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
-  const { value } = req.body;
+  const { type, value } = req.body;
   const { id } = req.params;
 
   // Not only do users need to be logged in to update a user, they
@@ -34,7 +34,7 @@ exports.updateUser = async (req, res) => {
   // user (users should only be able to change their own profiles)
   if (!isAuthorized(id, req.session)) return res.sendStatus(403);
 
-  const updatedUser = await User.update(id, value);
+  const updatedUser = await User.update(id, type, value);
   if (!updatedUser) return res.sendStatus(404)
   res.send(updatedUser);
 };

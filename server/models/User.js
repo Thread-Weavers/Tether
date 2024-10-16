@@ -9,13 +9,13 @@ class User {
   // static methods to hide the hashed password of users before sending user data 
   // to the client. Since we want to keep the #passwordHash property private, we 
   // provide the isValidPassword instance method as a way to indirectly access it.
-  constructor({ id, first_name, last_name, username, email, password_hash}) {
+  constructor({ id, first_name, last_name, username, email, password_hash, is_online}) {
     this.id = id;
     this.first_name = first_name;
     this.last_name = last_name;
     this.username = username;
     this.email = email;
-    this.is_online = false;
+    this.is_online = is_online;
     this.#passwordHash = password_hash;
   }
 
@@ -70,14 +70,14 @@ class User {
 
   // Updates the user that matches the given id with a new username.
   // Returns the modified user, using the constructor to hide the passwordHash. 
-  static async update(id, value) {
+  static async update(id, type, value) {
     const query = `
       UPDATE users
-      SET username=?
+      SET ??=?
       WHERE id=?
       RETURNING *
     `
-    const result = await knex.raw(query, [value, id])
+    const result = await knex.raw(query, [type, value, id])
     const rawUpdatedUser = result.rows[0];
     return rawUpdatedUser ? new User(rawUpdatedUser) : null;
   };
