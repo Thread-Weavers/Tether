@@ -3,17 +3,17 @@ const authUtils = require('../utils/auth-utils');
 
 class Reminder {
 
-  constructor({ id, userId, content, isPublic, isChecked}) {
+  constructor({ id, user_id, content, is_public, is_checked}) {
     this.id = id;
-    this.userId = userId;
+    this.user_id = user_id;
     this.content = content;
-    this.isPublic = is_public;
-    this.isChecked = is_checked;
+    this.is_public = is_public;
+    this.is_checked = is_checked;
   }
 
-  static async list() {
-    const query = `SELECT * FROM reminders`;
-    const result = await knex.raw(query);
+  static async list(userId) {
+    const query = `SELECT * FROM reminders WHERE user_id = ?`;
+    const result = await knex.raw(query, [userId]);
     return result.rows.map((rawReminderData) => new Reminder(rawReminderData));
   }
 
@@ -26,7 +26,7 @@ class Reminder {
  
   static async create(userId, content, isPublic) {
 
-    const query = `INSERT INTO reminders (userId, content, isPublic)
+    const query = `INSERT INTO reminders (user_id, content, is_public, is_checked)
       VALUES (?, ?, ?, false) RETURNING *`;
     const result = await knex.raw(query, [userId, content, isPublic]);
     const rawReminderData = result.rows[0];
@@ -47,6 +47,17 @@ class Reminder {
 
   static async deleteAll() {
     return knex('reminders').del()
+  }
+
+  static async delete(id) {
+    const query = `
+      DELETE FROM reminders
+      WHERE id=?
+      RETURNING *
+    `
+    const result = await knex.raw(query, [id]);
+    const rawDeletedReminder = result.rows[0];
+    return rawDeletedReminder ? new Reminder(rawDeletedReminder) : null;
   }
 }
 

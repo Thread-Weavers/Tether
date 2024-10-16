@@ -14,6 +14,8 @@ const checkAuthentication = require('./middleware/checkAuthentication');
 // controller imports
 const authControllers = require('./controllers/authControllers');
 const userControllers = require('./controllers/userControllers');
+const goalControllers = require('./controllers/goalControllers');
+const reminderControllers = require('./controllers/reminderControllers');
 const app = express();
 
 // middleware
@@ -46,7 +48,27 @@ app.get('/api/users', checkAuthentication, userControllers.listUsers);
 app.get('/api/users/:id', checkAuthentication, userControllers.showUser);
 app.patch('/api/users/:id', checkAuthentication, userControllers.updateUser);
 
+///////////////////////////////
+// Goal Routes
+///////////////////////////////
 
+app.post('/api/users/:id/goals', checkAuthentication, goalControllers.createGoal);
+
+app.get('/api/users/:id/goals', checkAuthentication, goalControllers.listGoals);
+app.get('/api/users/:id/goals/:goalId', checkAuthentication, goalControllers.showGoal);
+app.patch('/api/users/:id/goals/:goalId', checkAuthentication, goalControllers.updateGoal);
+app.delete('/api/users/:id/goals/:goalId', checkAuthentication, goalControllers.deleteGoal);
+
+///////////////////////////////
+// Reminder Routes
+///////////////////////////////
+
+app.post('/api/users/:id/reminders', checkAuthentication, reminderControllers.createReminder);
+
+app.get('/api/users/:id/reminders', checkAuthentication, reminderControllers.listReminders);
+app.get('/api/users/:id/reminders/:reminderId', checkAuthentication, reminderControllers.showReminder);
+app.patch('/api/users/:id/reminders/:reminderId', checkAuthentication, reminderControllers.updateReminder);
+app.delete('/api/users/:id/reminders/:reminderId', checkAuthentication, reminderControllers.deleteReminder);
 
 ///////////////////////////////
 // Fallback Route
