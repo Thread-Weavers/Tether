@@ -16,6 +16,7 @@ const authControllers = require('./controllers/authControllers');
 const userControllers = require('./controllers/userControllers');
 const goalControllers = require('./controllers/goalControllers');
 const reminderControllers = require('./controllers/reminderControllers');
+const ritualControllers = require('./controllers/ritualControllers');
 const app = express();
 
 // middleware
@@ -69,6 +70,17 @@ app.get('/api/users/:id/reminders', checkAuthentication, reminderControllers.lis
 app.get('/api/users/:id/reminders/:reminderId', checkAuthentication, reminderControllers.showReminder);
 app.patch('/api/users/:id/reminders/:reminderId', checkAuthentication, reminderControllers.updateReminder);
 app.delete('/api/users/:id/reminders/:reminderId', checkAuthentication, reminderControllers.deleteReminder);
+
+///////////////////////////////
+// Ritual Routes
+///////////////////////////////
+
+app.post('/api/users/:id/rituals', checkAuthentication, ritualControllers.createRitual);
+
+app.get('/api/users/:id/rituals', checkAuthentication, ritualControllers.listRituals);
+app.get('/api/users/:id/rituals/:ritualId', checkAuthentication, ritualControllers.showRitual);
+app.patch('/api/users/:id/rituals/:ritualId', checkAuthentication, ritualControllers.updateRitual);
+app.delete('/api/users/:id/rituals/:ritualId', checkAuthentication, ritualControllers.deleteRitual);
 
 ///////////////////////////////
 // Fallback Route
