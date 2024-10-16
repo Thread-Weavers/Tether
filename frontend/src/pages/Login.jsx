@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
-import { logUserIn } from "../adapters/auth-adapter";
+import { logUserIn, checkForLoggedInUser, logUserOut } from "../adapters/auth-adapter";
 import CurrentUserContext from "../contexts/current-user-context";
 
 export default function LoginPage() {
@@ -8,33 +8,52 @@ export default function LoginPage() {
   const [errorText, setErrorText] = useState('');
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
-  // users shouldn't be able to see the login page if they are already logged in.
-  // if the currentUser exists in the context, navigate the user to 
-  // the /users/:id page for that user, using the currentUser.id value
-  if (currentUser) return <Navigate to={`/users/${currentUser.id}`} />;
+  useEffect(() => {
+    const fetchUser = async () => {
+      const [user] = await checkForLoggedInUser();
+      if (user) {
+        setCurrentUser(user); // Set current user if logged in
+        navigate(`/users/${user.id}/profile`); // Redirect to user page
+      }
+    };
+
+    fetchUser(); // Check if user is already logged in
+  }, [setCurrentUser, navigate]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrorText('');
     const formData = new FormData(event.target);
     const [user, error] = await logUserIn(Object.fromEntries(formData));
+
     if (error) return setErrorText(error.message);
-    setCurrentUser(user);
-    navigate(`/users/${user.id}`);
+    setCurrentUser(user); // Set user in context
+    navigate(`/users/${user.id}`); // Redirect to user page
   };
 
-  return <>
-    <h1>Login</h1>
-    <form onSubmit={handleSubmit} aria-labelledby="login-heading">
-      <h2 id='login-heading'>Log back in!</h2>
-      <label htmlFor="username">Username</label>
-      <input type="text" autoComplete="username" id="username" name="username" />
+  const handleLogout = async () => {
+    await logUserOut(); // Clear cookie
+    setCurrentUser(null); // Clear user state
+    navigate("/"); // Redirect to home or login page
+  };
 
-      <label htmlFor="password">Password</label>
-      <input type="password" autoComplete="current-password" id="password" name="password" />
+  if (currentUser) return <Navigate to={`/users/${currentUser.id}`} />;
 
-      <button>Log in!</button>
-    </form>
-    {!!errorText && <p>{errorText}</p>}
-  </>;
+  return (
+    <>
+      <h1>Login</h1>
+      <form onSubmit={handleSubmit} aria-labelledby="login-heading">
+        <h2 id='login-heading'>Log back in!</h2>
+        <label htmlFor="username">Username</label>
+        <input type="text" autoComplete="username" id="username" name="username" />
+
+        <label htmlFor="password">Password</label>
+        <input type="password" autoComplete="current-password" id="password" name="password" />
+
+        <button>Log in!</button>
+      </form>
+      {!!errorText && <p>{errorText}</p>}
+      {currentUser && <button onClick={handleLogout}>Log out</button>}
+    </>
+  );
 }
