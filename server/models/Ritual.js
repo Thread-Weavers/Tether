@@ -3,17 +3,17 @@ const authUtils = require('../utils/auth-utils');
 
 class Ritual {
 
-  constructor({ id, userId, content, isPublic, isChecked}) {
+  constructor({ id, user_id, content, is_public, is_checked}) {
     this.id = id;
-    this.userId = userId;
+    this.user_id = user_id;
     this.content = content;
-    this.isPublic = is_public;
-    this.isChecked = is_checked;
+    this.is_public = is_public;
+    this.is_checked = is_checked;
   }
 
-  static async list() {
-    const query = `SELECT * FROM rituals`;
-    const result = await knex.raw(query);
+  static async list(userId) {
+    const query = `SELECT * FROM rituals WHERE user_id = ?`;
+    const result = await knex.raw(query, [userId]);
     return result.rows.map((rawRitualData) => new Ritual(rawRitualData));
   }
 
@@ -26,27 +26,38 @@ class Ritual {
  
   static async create(userId, content, isPublic) {
 
-    const query = `INSERT INTO rituals (userId, content, isPublic)
+    const query = `INSERT INTO rituals (user_id, content, is_public, is_checked)
       VALUES (?, ?, ?, false) RETURNING *`;
     const result = await knex.raw(query, [userId, content, isPublic]);
     const rawRitualData = result.rows[0];
     return new Ritual(rawRitualData);
   }
 
-  static async update(id, type, value) {
+  static async update(id, target, value) {
     const query = `
       UPDATE rituals
       SET ??=?
       WHERE id=?
       RETURNING *
     `
-    const result = await knex.raw(query, [type, value, id])
+    const result = await knex.raw(query, [target, value, id])
     const rawUpdatedRitual = result.rows[0];
     return rawUpdatedRitual ? new Ritual(rawUpdatedRitual) : null;
   };
 
   static async deleteAll() {
     return knex('rituals').del()
+  }
+
+  static async delete(id) {
+    const query = `
+      DELETE FROM rituals
+      WHERE id=?
+      RETURNING *
+    `
+    const result = await knex.raw(query, [id]);
+    const rawDeletedRitual = result.rows[0];
+    return rawDeletedRitual ? new Ritual(rawDeletedRitual) : null;
   }
 }
 
