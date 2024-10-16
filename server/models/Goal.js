@@ -3,17 +3,17 @@ const authUtils = require('../utils/auth-utils');
 
 class Goal {
 
-  constructor({ id, userId, content, isPublic, isChecked}) {
+  constructor({ id, user_id, content, is_public, is_checked}) {
     this.id = id;
-    this.userId = userId;
+    this.user_id = user_id;
     this.content = content;
-    this.isPublic = is_public;
-    this.isChecked = is_checked;
+    this.is_public = is_public;
+    this.is_checked = is_checked;
   }
 
-  static async list() {
-    const query = `SELECT * FROM goals`;
-    const result = await knex.raw(query);
+  static async list(userId) {
+    const query = `SELECT * FROM goals WHERE user_id = ?`;
+    const result = await knex.raw(query, [userId]);
     return result.rows.map((rawGoalData) => new Goal(rawGoalData));
   }
 
@@ -26,7 +26,7 @@ class Goal {
  
   static async create(userId, content, isPublic) {
 
-    const query = `INSERT INTO goals (userId, content, isPublic)
+    const query = `INSERT INTO goals (user_id, content, is_public, is_checked)
       VALUES (?, ?, ?, false) RETURNING *`;
     const result = await knex.raw(query, [userId, content, isPublic]);
     const rawGoalData = result.rows[0];
@@ -47,6 +47,17 @@ class Goal {
 
   static async deleteAll() {
     return knex('goals').del()
+  }
+
+  static async delete(id) {
+    const query = `
+      DELETE FROM goals
+      WHERE id=?
+      RETURNING *
+    `
+    const result = await knex.raw(query, [id]);
+    const rawDeletedGoal = result.rows[0];
+    return rawDeletedGoal ? new Goal(rawDeletedGoal) : null;
   }
 }
 
