@@ -70,20 +70,32 @@ class User {
 
   // Updates the user that matches the given id with a new username.
   // Returns the modified user, using the constructor to hide the passwordHash. 
-  static async update(id, type, value) {
+  static async update(id, target, value) {
     const query = `
       UPDATE users
       SET ??=?
       WHERE id=?
       RETURNING *
     `
-    const result = await knex.raw(query, [type, value, id])
+    const result = await knex.raw(query, [target, value, id])
     const rawUpdatedUser = result.rows[0];
     return rawUpdatedUser ? new User(rawUpdatedUser) : null;
   };
 
   static async deleteAll() {
     return knex('users').del()
+  }
+
+  static async setOnline(id, value) {
+    const query = `
+      UPDATE users
+      SET is_online=?
+      WHERE id=?
+      RETURNING *
+    `
+    const result = await knex.raw(query, [value, id])
+    const rawUpdatedUser = result.rows[0];
+    return rawUpdatedUser ? new User(rawUpdatedUser) : null;
   }
 }
 

@@ -1,7 +1,7 @@
 const { isAuthorized } = require('../utils/auth-utils');
 const Goal = require('../models/Goal');
 
-exports.addGoal = async (req, res) => {
+exports.createGoal = async (req, res) => {
     const { content, isPublic } = req.body;
     const { id } = req.params;
   
@@ -16,6 +16,17 @@ exports.listGoals = async (req, res) => {
     if (!isAuthorized(id, req.session)) return res.sendStatus(403);
     const userGoals = await Goal.list(id);
     res.send(userGoals);
+}
+
+exports.showGoal = async (req, res) => {
+    const { id, goalId } = req.params;
+
+    if (!isAuthorized(id, req.session)) return res.sendStatus(403);
+
+    const goal = await Goal.find(goalId);
+    if (!goal) return res.sendStatus(404);
+
+    res.send(goal);
 }
 
 exports.updateGoal = async (req, res) => {

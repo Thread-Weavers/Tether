@@ -33,14 +33,14 @@ class Goal {
     return new Goal(rawGoalData);
   }
 
-  static async update(id, type, value) {
+  static async update(id, target, value) {
     const query = `
       UPDATE goals
       SET ??=?
       WHERE id=?
       RETURNING *
     `
-    const result = await knex.raw(query, [type, value, id])
+    const result = await knex.raw(query, [target, value, id])
     const rawUpdatedGoal = result.rows[0];
     return rawUpdatedGoal ? new Goal(rawUpdatedGoal) : null;
   };
