@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import CurrentUserContext from "../contexts/current-user-context";
 
 export default function ProfilePage() {
@@ -59,7 +59,7 @@ export default function ProfilePage() {
     };
     
     return <>
-    <h2>{currentUser.username}</h2>
+    <h2>{currentUser?.username}</h2>
     <textarea value={bio} onChange={handleBioChange} placeholder="Type your bio here!!!"/>
     
     <h3>Goals</h3>
