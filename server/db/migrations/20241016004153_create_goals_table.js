@@ -5,10 +5,10 @@
 exports.up = function(knex) {
   return knex.schema.createTable('goals', (table) => {
     table.increments();
-    table.integer('userId').notNullable();
+    table.integer('user_id').notNullable();
     table.string('content').notNullable();
-    table.boolean('isPublic').notNullable();
-    table.boolean('isChecked').notNullable();
+    table.boolean('is_public').notNullable();
+    table.boolean('is_checked').notNullable();
   })
 };
 
