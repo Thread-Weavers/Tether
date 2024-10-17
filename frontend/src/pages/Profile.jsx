@@ -8,8 +8,6 @@ export default function ProfilePage() {
     
     // useState to update bio
     const [bio, setBio] = useState("");
-
-    // useState to edit bio
     const [isEditingBio, setIsEditingBio] = useState(false);
 
     
@@ -25,6 +23,20 @@ export default function ProfilePage() {
     //useState to update reminder
     const [reminders, setReminders] = useState([]);
     const [newReminder, setNewReminder] = useState("");
+    const [isAddingReminder, setIsAddingReminder] = useState(false);
+
+    // useState to handle editing a reminder
+    const [editReminderIndex, setEditReminderIndex] = useState(null);
+    const [editReminderValue, setEditReminderValue] = useState("");
+
+    //useState to update rituals
+    const [rituals, setRituals] = useState([]);
+    const [newRitual, setNewRitual] = useState("");
+    const [isAddingRitual, setIsAddingRitual] = useState(false);
+
+    // useState to handle editing a Ritual
+    const [editRitualIndex, setEditRitualIndex] = useState(null);
+    const [editRitualValue, setEditRitualValue] = useState("");
     
     // function to click bio 
     const handleBioChange = (e) => setBio(e.target.value);
@@ -34,6 +46,9 @@ export default function ProfilePage() {
     
     // function to handle reminder
     const handleNewReminderChange = (e) => setNewReminder(e.target.value);
+
+    // function to handle ritual
+    const handleNewRitualChange = (e) => setNewRitual(e.target.value);
     
     // add  goal
     const addGoal = () => {
@@ -78,12 +93,76 @@ export default function ProfilePage() {
         if (newReminder.trim()) {
             setReminders([...reminders, newReminder]);
             setNewReminder("");
+            setIsAddingReminder(false);
         }
     };
     
     // remove reminder
     const removeReminder = (index) => {
+        console.log(index);
+        setEditReminderIndex(null);
+        setEditReminderValue("");
         setReminders(reminders.filter((_, i) => i !== index));
+    };
+
+    // start editing reminder
+    const startEditingReminder = (index) => {
+        setEditReminderIndex(index);
+        setEditReminderValue(reminders[index]);
+    };
+
+    // save edited reminder
+    const saveEditedReminder = () => {
+        const updatedReminders = [...reminders];
+        updatedReminders[editReminderIndex] = editReminderValue;
+        setReminders(updatedReminders);
+        setEditReminderIndex(null);
+        setEditReminderValue("");
+    };
+
+
+    // cancel editing reminder
+    const cancelEditReminder = () => {
+        setEditReminderIndex(null);
+        setEditReminderValue("");
+    };
+
+    // add  ritual
+    const addRitual = () => {
+        if(newRitual.trim()){
+            setRituals([...rituals, newRitual]);
+            setNewRitual("");
+            setIsAddingRitual(false);
+        }
+    }
+    
+    // remove ritual
+    const removeRitual = (index) => {
+        console.log(index);
+        setEditRitualIndex(null);
+        setEditRitualValue("");
+        setRituals(rituals.filter((_, i) => i !== index));
+    }
+
+    // start editing ritual
+    const startEditingRitual = (index) => {
+        setEditRitualIndex(index);
+        setEditRitualValue(rituals[index]);
+    };
+
+    // save edited ritual
+    const saveEditedRitual = () => {
+        const updatedRituals = [...Rituals];
+        updatedRituals[editRitualIndex] = editRitualValue;
+        setRituals(updatedRituals);
+        setEditRitualIndex(null);
+        setEditRitualValue("");
+    };
+
+    // cancel editing ritual
+    const cancelEditRitual = () => {
+        setEditRitualIndex(null);
+        setEditRitualValue("");
     };
     
     return <>
@@ -135,17 +214,67 @@ export default function ProfilePage() {
         ))}
     </ul>
 
-    <h3>Reminder</h3>
+    <h3>Rituals</h3>
+    <button onClick={() => setIsAddingRitual(true)}>Add Ritual</button>
+    {isAddingRitual && (
+    <div className="modal">
+        <h4>Add a New Ritual</h4>
+        <input type="text" value={newRitual} onChange={handleNewRitualChange} placeholder="Type your ritual here!" />
+        <button onClick={addRitual}>Save</button>
+        <button onClick={() => setIsAddingRitual(false)}>Cancel</button>
+    </div>
+    )}
+
     <ul>
-        {reminders.map((reminder, index) => (
+        {rituals.map((ritual, index) => (
         <li key={index}>
-            {reminder} <button onClick={() => removeReminder(index)}>Remove</button>
+            {editRitualIndex === index ? (
+            <>
+            <input type="text" value={editRitualValue} onChange={(e) => setEditRitualValue(e.target.value)} />
+            <button onClick={saveEditedRitual}>Save</button>
+            <button onClick={cancelEditRitual}>Cancel</button>
+            <button onClick={() => removeRitual(index)}>Remove</button>
+            </>
+            ) : (
+            <>
+            {ritual} 
+            <button onClick={() => startEditingRitual(index)}>Edit</button>           
+            </>
+            )}
         </li>
         ))}
     </ul>
-    
-    <input type="text" value={newReminder} onChange={handleNewReminderChange} placeholder="Add a new reminder!"/>
-    <button onClick={addReminder}>Add Reminder</button>
+
+    <h3>Reminders</h3>
+    <button onClick={() => setIsAddingReminder(true)}>Add Reminder</button>
+    {isAddingReminder && (
+    <div className="modal">
+        <h4>Add a New Reminder</h4>
+        <input type="text" value={newReminder} onChange={handleNewReminderChange} placeholder="Type your reminder here!" />
+        <button onClick={addReminder}>Save</button>
+        <button onClick={() => setIsAddingReminder(false)}>Cancel</button>
+    </div>
+    )}
+
+    <ul>
+        {reminders.map((reminder, index) => (
+        <li key={index}>
+            {editReminderIndex === index ? (
+            <>
+            <input type="text" value={editReminderValue} onChange={(e) => setEditReminderValue(e.target.value)} />
+            <button onClick={saveEditedReminder}>Save</button>
+            <button onClick={cancelEditReminder}>Cancel</button>
+            <button onClick={() => removeReminder(index)}>Remove</button>
+            </>
+            ) : (
+            <>
+            {reminder} 
+            <button onClick={() => startEditingReminder(index)}>Edit</button>           
+            </>
+            )}
+        </li>
+        ))}
+    </ul>
     
     </>
 }
