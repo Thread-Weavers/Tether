@@ -3,46 +3,49 @@ const Reminder = require('../models/Reminder');
 
 exports.createReminder = async (req, res) => {
     const { content, isPublic } = req.body;
-    const { id } = req.params;
+    const userId = req.session.userId;
   
-    if (!isAuthorized(id, req.session)) return res.sendStatus(403);
+    if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
   
-    const newReminder = await Reminder.create(id, content, isPublic);
+    const newReminder = await Reminder.create(userId, content, isPublic);
     res.send(newReminder);
   }
 
 exports.listReminders = async (req, res) => {
-    const { id } = req.params;
-    if (!isAuthorized(id, req.session)) return res.sendStatus(403);
-    const userReminders = await Reminder.list(id);
+    const userId = req.session.userId;
+    if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
+    const userReminders = await Reminder.list(userId);
     res.send(userReminders);
 }
 
 exports.updateReminder = async (req, res) => {
     const { target, value } = req.body;
-    const { id, reminderId } = req.params;
+    const { id } = req.params;
+    const userId = req.session.userId;
 
-    if (!isAuthorized(id, req.session)) return res.sendStatus(403);
+    if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
 
-    const updatedReminder = await Reminder.update(reminderId, target, value);
+    const updatedReminder = await Reminder.update(id, target, value);
     res.send(updatedReminder);
 }
 
 exports.deleteReminder = async (req, res) => {
-    const { id, reminderId } = req.params;
+    const { id } = req.params;
+    const userId = req.session.userId;
 
-    if (!isAuthorized(id, req.session)) return res.sendStatus(403);
+    if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
 
-    Reminder.delete(reminderId);
-    res.sendStatus(410);
+    Reminder.delete(id);
+    res.sendStatus(204);
 }
 
 exports.showReminder = async (req, res) => {
-    const { id, reminderId } = req.params;
+    const { id } = req.params;
+    const userId = req.session.userId;
 
-    if (!isAuthorized(id, req.session)) return res.sendStatus(403);
+    if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
 
-    const reminder = await Reminder.find(reminderId);
+    const reminder = await Reminder.find(id);
     if (!reminder) return res.sendStatus(404);
 
     res.send(reminder);

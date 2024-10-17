@@ -3,27 +3,28 @@ const Goal = require('../models/Goal');
 
 exports.createGoal = async (req, res) => {
     const { content, isPublic } = req.body;
-    const { id } = req.params;
+    const userId = req.session.userId;
   
-    if (!isAuthorized(id, req.session)) return res.sendStatus(403);
+    if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
   
-    const newGoal = await Goal.create(id, content, isPublic);
+    const newGoal = await Goal.create(userId, content, isPublic);
     res.send(newGoal);
   }
 
 exports.listGoals = async (req, res) => {
-    const { id } = req.params;
-    if (!isAuthorized(id, req.session)) return res.sendStatus(403);
-    const userGoals = await Goal.list(id);
+    const userId = req.session.userId;
+    if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
+    const userGoals = await Goal.list(userId);
     res.send(userGoals);
 }
 
 exports.showGoal = async (req, res) => {
-    const { id, goalId } = req.params;
+    const { id } = req.params;
+    const userId = req.session.userId;
 
-    if (!isAuthorized(id, req.session)) return res.sendStatus(403);
+    if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
 
-    const goal = await Goal.find(goalId);
+    const goal = await Goal.find(id);
     if (!goal) return res.sendStatus(404);
 
     res.send(goal);
@@ -31,19 +32,21 @@ exports.showGoal = async (req, res) => {
 
 exports.updateGoal = async (req, res) => {
     const { target, value } = req.body;
-    const { id, goalId } = req.params;
+    const { id } = req.params;
+    const userId = req.session.userId;
 
-    if (!isAuthorized(id, req.session)) return res.sendStatus(403);
+    if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
 
-    const updatedGoal = await Goal.update(goalId, target, value);
+    const updatedGoal = await Goal.update(id, target, value);
     res.send(updatedGoal);
 }
 
 exports.deleteGoal = async (req, res) => {
-    const { id, goalId } = req.params;
+    const { id } = req.params;
+    const userId = req.session.userId;
 
-    if (!isAuthorized(id, req.session)) return res.sendStatus(403);
+    if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
 
-    Goal.delete(goalId);
-    res.sendStatus(410);
+    Goal.delete(id);
+    res.sendStatus(204);
 }
