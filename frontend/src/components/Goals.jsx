@@ -66,10 +66,10 @@ export default function Goals() {
     // save edited goal
     const saveEditedGoal = async () => {
         const updatedGoals = [...goals];
-        updatedGoals[editGoalIndex].text = editGoalValue;
+        updatedGoals[editGoalIndex].content = editGoalValue;
 
         try {
-            await updateGoal({ id: goals[editGoalIndex].id, target: "text", value: editGoalValue }); 
+            await updateGoal({ id: goals[editGoalIndex].id, target: "content", value: editGoalValue }); 
             setGoals(updatedGoals);
         } catch (error) {
             console.warn(error.message);
