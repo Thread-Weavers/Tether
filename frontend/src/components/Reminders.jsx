@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import CurrentUserContext from "../contexts/current-user-context";
+import { createReminder } from "../adapters/reminder-adapter";
 
 export default function Goals() {
     
@@ -15,6 +16,15 @@ export default function Goals() {
 
     // function to handle reminder
     const handleNewReminderChange = (e) => setNewReminder(e.target.value);
+    const sendReminders = async() => {
+        try {
+            console.log(newReminder)
+            const response = await createReminder(newReminder)
+            console.log(response);
+        } catch (error) {
+            console.warn(error.message)
+        }
+    }
 
 
     // add reminder
@@ -24,6 +34,7 @@ export default function Goals() {
             setNewReminder("");
             setIsAddingReminder(false);
         }
+        sendReminders();
     };
     
     // remove reminder
