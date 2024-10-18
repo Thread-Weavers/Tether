@@ -7,7 +7,7 @@ exports.createReminder = async (req, res) => {
   
     if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
   
-    const newReminder = await Reminder.create(userId, content, isPublic);
+    const newReminder = await Reminder.create(userId, content, isPublic ? isPublic : false);
     res.send(newReminder);
   }
 

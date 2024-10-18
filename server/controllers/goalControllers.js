@@ -7,7 +7,7 @@ exports.createGoal = async (req, res) => {
   
     if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
   
-    const newGoal = await Goal.create(userId, content, isPublic);
+    const newGoal = await Goal.create(userId, content, isPublic ? isPublic : false);
     res.send(newGoal);
   }
 

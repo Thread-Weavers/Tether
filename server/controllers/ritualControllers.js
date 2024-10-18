@@ -7,7 +7,7 @@ exports.createRitual = async (req, res) => {
   
     if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
   
-    const newRitual = await Ritual.create(userId, content, isPublic);
+    const newRitual = await Ritual.create(userId, content, isPublic ? isPublic : false);
     res.send(newRitual);
   }
 
