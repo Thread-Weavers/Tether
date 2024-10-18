@@ -4,7 +4,7 @@ import { fetchHandler, getPostOptions, getPatchOptions, basicFetchWithBody, dele
 
 const baseUrl = '/api/reminders';
 
-export const createReminder = async ({content, isPublic}) => {
+export const createReminder = async (content, isPublic = false) => {
   return fetchHandler(baseUrl, getPostOptions({ content, isPublic }))
 };
 
