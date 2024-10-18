@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import CurrentUserContext from "../contexts/current-user-context";
+import { createGoal } from "../adapters/goal-adapter";
 
 export default function Goals() {
     
@@ -14,6 +15,15 @@ export default function Goals() {
 
     // function to handle goal
     const handleNewGoalChange = (e) => setNewGoal(e.target.value);
+    const sendGoals = async() => {
+        try {
+            console.log(newGoal)
+            const response = await createGoal(newGoal)
+            console.log(response);
+        } catch (error) {
+            console.warn(error.message)
+        }
+    }
 
     // add  goal
     const addGoal = () => {
@@ -22,6 +32,7 @@ export default function Goals() {
             setNewGoal("");
             setIsAddingGoal(false);
         }
+        sendGoals()
     }
     
     // remove goal
@@ -52,6 +63,8 @@ export default function Goals() {
         setEditGoalIndex(null);
         setEditGoalValue("");
     };
+
+    // fetch POST
 
     return <>
     <h3>Goals</h3>
