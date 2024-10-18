@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import CurrentUserContext from "../contexts/current-user-context";
+import { createReminder } from "../adapters/reminder-adapter";
 
 export default function Goals() {
     
@@ -14,6 +15,15 @@ export default function Goals() {
     
     // function to handle ritual
     const handleNewRitualChange = (e) => setNewRitual(e.target.value);
+    const sendRituals = async() => {
+        try {
+            console.log(newGoal)
+            const response = await createGoal(newGoal)
+            console.log(response);
+        } catch (error) {
+            console.warn(error.message)
+        }
+    }
 
     // add  ritual
     const addRitual = () => {
@@ -22,6 +32,7 @@ export default function Goals() {
             setNewRitual("");
             setIsAddingRitual(false);
         }
+        sendRituals();
     }
     
     // remove ritual
