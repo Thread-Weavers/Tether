@@ -2,9 +2,10 @@
 // with the provided body and the remaining options
 import { fetchHandler, getPostOptions, getPatchOptions, basicFetchWithBody, deleteOptions } from "../utils/fetchingUtils";
 
-const baseUrl = '/api/goals';
+const baseUrl = '/api/goals/';
 
-export const createGoal = async ({content, isPublic}) => {
+export const createGoal = async (content, isPublic =  false) => {
+  console.log(content);
   return fetchHandler(baseUrl, getPostOptions({ content, isPublic }))
 };
 
