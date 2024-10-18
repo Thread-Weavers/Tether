@@ -4,7 +4,6 @@ import Bio from "../components/Bio";
 import Goals from "../components/Goals";
 import Reminders from "../components/Reminders";
 import Rituals from "../components/Rituals";
-import GoalsYourTether from "../components/GoalsYourTether";
 
 export default function YourTetherPage() {
 
