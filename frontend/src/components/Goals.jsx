@@ -1,25 +1,37 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import CurrentUserContext from "../contexts/current-user-context";
-import { createGoal } from "../adapters/goal-adapter";
+import { createGoal, getAllGoals, updateGoal, deleteGoal } from "../adapters/goal-adapter";
 
 export default function Goals() {
     
-    //useState to update goals
+    //useState to CRUD goals
     const [goals, setGoals] = useState([]);
     const [newGoal, setNewGoal] = useState("");
     const [isAddingGoal, setIsAddingGoal] = useState(false);
-
-    // useState to handle editing a goal
     const [editGoalIndex, setEditGoalIndex] = useState(null);
     const [editGoalValue, setEditGoalValue] = useState("");
+    const [loading, setLoading] = useState(true);
+
+    // fetch existing goals
+    useEffect(() => {
+        const fetchGoals = async () => {
+            const fetchedGoals = await getAllGoals();
+            setGoals(fetchedGoals);
+            console.log(fetchedGoals);
+            setLoading(false);
+        };
+        fetchGoals();
+    }, []);
 
     // function to handle goal
     const handleNewGoalChange = (e) => setNewGoal(e.target.value);
+
+    // fetch POST goal
     const sendGoals = async() => {
         try {
-            console.log(newGoal)
-            const response = await createGoal(newGoal)
-            console.log(response);
+            const response = await createGoal(newGoal);
+            console.log(response[0]);
+            setGoals([...goals, response[0]]);
         } catch (error) {
             console.warn(error.message)
         }
@@ -28,34 +40,43 @@ export default function Goals() {
     // add goal
     const addGoal = () => {
         if(newGoal.trim()){
-            setGoals([...goals, newGoal]);
+            sendGoals();
             setNewGoal("");
             setIsAddingGoal(false);
         }
-        sendGoals()
     }
     
     // remove goal
-    const removeGoal = (index) => {
-        console.log(index);
-        setEditGoalIndex(null);
-        setEditGoalValue("");
-        setGoals(goals.filter((_, i) => i !== index));
+    const removeGoal = async (index) => {
+        const goalToDelete = goals[index];
+        try {
+            await deleteGoal(goalToDelete.id);
+            setGoals(goals.filter((_, i) => i !== index));
+        } catch (error) {
+            console.warn(error.message);
+        }
     }
 
     // start editing goal
     const startEditingGoal = (index) => {
         setEditGoalIndex(index);
-        setEditGoalValue(goals[index]);
+        setEditGoalValue(goals[index].text);
     };
 
     // save edited goal
-    const saveEditedGoal = () => {
+    const saveEditedGoal = async () => {
         const updatedGoals = [...goals];
-        updatedGoals[editGoalIndex] = editGoalValue;
-        setGoals(updatedGoals);
-        setEditGoalIndex(null);
-        setEditGoalValue("");
+        updatedGoals[editGoalIndex].text = editGoalValue;
+
+        try {
+            await updateGoal({ id: goals[editGoalIndex].id, target: "text", value: editGoalValue }); 
+            setGoals(updatedGoals);
+        } catch (error) {
+            console.warn(error.message);
+        } finally {
+            setEditGoalIndex(null);
+            setEditGoalValue("");
+        }
     };
 
     // cancel editing goal
@@ -63,6 +84,17 @@ export default function Goals() {
         setEditGoalIndex(null);
         setEditGoalValue("");
     };
+
+    // toggle complete
+    const toggleComplete = (index) => {
+        const updatedGoals = [...goals];
+        updatedGoals[index].completed = !updatedGoals[index].completed;
+        setGoals(updatedGoals);
+    }
+
+    if (loading) {
+        return <p>Loading Goals...</p>;
+    }
 
     return <>
     <h3>Goals</h3>
@@ -78,7 +110,7 @@ export default function Goals() {
 
     <ul>
         {goals.map((goal, index) => (
-        <li key={index}>
+        <li key={index} className={goal.completed ? "completed" : ""}>
             {editGoalIndex === index ? (
             <>
             <input type="text" value={editGoalValue} onChange={(e) => setEditGoalValue(e.target.value)} />
@@ -88,8 +120,12 @@ export default function Goals() {
             </>
             ) : (
             <>
-            {goal} 
-            <button onClick={() => startEditingGoal(index)}>Edit</button>        
+            <span className={goal.completed ? "completed" : ""}>{goal.content}</span>
+            <button onClick={() => startEditingGoal(index)}>Edit</button>
+            <button onClick={() => toggleComplete(index)}>
+                {goal.completed ? "Incomplete" : "Complete"}
+            </button>
+            <button onClick={() => removeGoal(index)}>Remove</button>        
             </>
             )}
         </li>

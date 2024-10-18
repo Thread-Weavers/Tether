@@ -52,3 +52,9 @@ form {
   font-weight: bold;
   font-style: italic;
 }
+
+/* completed goal a line will appear */
+.completed {
+  text-decoration: line-through;
+  color: green;
+}

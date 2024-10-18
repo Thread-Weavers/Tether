@@ -1,12 +1,18 @@
 import { useContext, useState } from "react";
 import CurrentUserContext from "../contexts/current-user-context";
+import Bio from "../components/Bio";
+import Goals from "../components/Goals";
+import Reminders from "../components/Reminders";
+import Rituals from "../components/Rituals";
 import GoalsYourTether from "../components/GoalsYourTether";
 
 export default function YourTetherPage() {
 
     
     return <>
-    <GoalsYourTether />
-    
+    <Bio />
+    <Goals  />
+    <Reminders />
+    <Rituals />    
     </>
 }

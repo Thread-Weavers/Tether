@@ -13,14 +13,12 @@ export default function Goals() {
     const [editReminderIndex, setEditReminderIndex] = useState(null);
     const [editReminderValue, setEditReminderValue] = useState("");
 
-
     // function to handle reminder
     const handleNewReminderChange = (e) => setNewReminder(e.target.value);
 
     // Reminders POST
     const sendReminders = async() => {
         try {
-            console.log(newReminder)
             const response = await createReminder(newReminder)
             console.log(response);
         } catch (error) {
@@ -28,20 +26,18 @@ export default function Goals() {
         }
     }
 
-
     // add reminder
     const addReminder = () => {
         if (newReminder.trim()) {
-            setReminders([...reminders, newReminder]);
+            setReminders([...reminders, { text: newReminder, completed: false }]);
             setNewReminder("");
             setIsAddingReminder(false);
+            sendReminders();
         }
-        sendReminders();
     };
     
     // remove reminder
     const removeReminder = (index) => {
-        console.log(index);
         setEditReminderIndex(null);
         setEditReminderValue("");
         setReminders(reminders.filter((_, i) => i !== index));
@@ -50,24 +46,30 @@ export default function Goals() {
     // start editing reminder
     const startEditingReminder = (index) => {
         setEditReminderIndex(index);
-        setEditReminderValue(reminders[index]);
+        setEditReminderValue(reminders[index].text);
     };
 
     // save edited reminder
     const saveEditedReminder = () => {
         const updatedReminders = [...reminders];
-        updatedReminders[editReminderIndex] = editReminderValue;
+        updatedReminders[editReminderIndex].text = editReminderValue;
         setReminders(updatedReminders);
         setEditReminderIndex(null);
         setEditReminderValue("");
     };
-
 
     // cancel editing reminder
     const cancelEditReminder = () => {
         setEditReminderIndex(null);
         setEditReminderValue("");
     };
+
+    // toggle complete
+    const toggleComplete = (index) => {
+        const updatedReminders = [...reminders];
+        updatedReminders[index].completed = !updatedReminders[index].completed;
+        setReminders(updatedReminders);
+    }
 
     return <>
     <h3>Reminders</h3>
@@ -83,7 +85,7 @@ export default function Goals() {
 
     <ul>
         {reminders.map((reminder, index) => (
-        <li key={index}>
+        <li key={index} className={reminder.completed ? "completed" : ""}>
             {editReminderIndex === index ? (
             <>
             <input type="text" value={editReminderValue} onChange={(e) => setEditReminderValue(e.target.value)} />
@@ -93,7 +95,11 @@ export default function Goals() {
             </>
             ) : (
             <>
-            {reminder} 
+            <span className={reminder.completed ? "completed" : ""}>{reminder.text}</span>
+            <button onClick={() => startEditingGoal(index)}>Edit</button>
+            <button onClick={() => toggleComplete(index)}>
+                {reminder.completed ? "Incomplete" : "Complete"}
+            </button> 
             <button onClick={() => startEditingReminder(index)}>Edit</button>           
             </>
             )}

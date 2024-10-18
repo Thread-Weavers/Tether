@@ -25,6 +25,6 @@ export const updateGoal = async ({ id, target, value }) => {
   return fetchHandler(`${baseUrl}/${id}`, getPatchOptions({ target, value }))
 }
 
-export const deleteGoal = async ({}) => {
+export const deleteGoal = async (id) => {
   return fetchHandler(`${baseUrl}/${id}`, deleteOptions);
 }
