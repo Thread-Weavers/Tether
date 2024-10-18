@@ -16,6 +16,8 @@ export default function Goals() {
 
     // function to handle reminder
     const handleNewReminderChange = (e) => setNewReminder(e.target.value);
+
+    // Reminders POST
     const sendReminders = async() => {
         try {
             console.log(newReminder)
