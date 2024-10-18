@@ -53,6 +53,24 @@ export default function Goals() {
         setEditGoalValue("");
     };
 
+    // fetch POST
+    const sendGoals = async() => {
+        try {
+            const request = await fetch(`/api/goals/`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    content: newGoal
+                }),
+                headers: {
+                   "Content-type" : "application/json"
+                }
+            })
+            console.log(request.JSON());
+        } catch (error) {
+            console.warn(error.message)
+        }
+    }
+
     return <>
     <h3>Goals</h3>
     <button onClick={() => setIsAddingGoal(true)}>Add Goal</button>
