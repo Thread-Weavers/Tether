@@ -15,6 +15,8 @@ export default function Goals() {
     
     // function to handle ritual
     const handleNewRitualChange = (e) => setNewRitual(e.target.value);
+
+    // Ritual POST
     const sendRituals = async() => {
         try {
             console.log(newRitual)
