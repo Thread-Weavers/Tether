@@ -25,7 +25,7 @@ export default function Goals() {
         }
     }
 
-    // add  goal
+    // add goal
     const addGoal = () => {
         if(newGoal.trim()){
             setGoals([...goals, newGoal]);
@@ -63,8 +63,6 @@ export default function Goals() {
         setEditGoalIndex(null);
         setEditGoalValue("");
     };
-
-    // fetch POST
 
     return <>
     <h3>Goals</h3>
