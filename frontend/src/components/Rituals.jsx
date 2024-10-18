@@ -17,8 +17,8 @@ export default function Goals() {
     const handleNewRitualChange = (e) => setNewRitual(e.target.value);
     const sendRituals = async() => {
         try {
-            console.log(newGoal)
-            const response = await createGoal(newGoal)
+            console.log(newRitual)
+            const response = await createRitual(newRitual)
             console.log(response);
         } catch (error) {
             console.warn(error.message)

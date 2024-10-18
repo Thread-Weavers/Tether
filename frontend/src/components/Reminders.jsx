@@ -18,8 +18,8 @@ export default function Goals() {
     const handleNewReminderChange = (e) => setNewReminder(e.target.value);
     const sendReminders = async() => {
         try {
-            console.log(newGoal)
-            const response = await createGoal(newGoal)
+            console.log(newReminder)
+            const response = await createReminder(newReminder)
             console.log(response);
         } catch (error) {
             console.warn(error.message)
