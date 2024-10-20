@@ -1,33 +1,35 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import CurrentUserContext from "../contexts/current-user-context";
+import { updateUser } from "../adapters/user-adapter";
 
 export default function Bio() {
+    const { currentUser } = useContext(CurrentUserContext); // Current User
+    // Bio States
+    const [bio, setBio] = useState("Loading bio..."); // Initial bio
+    const [bioValue, setBioValue]  = useState(""); // New bio
+    const [isEditingBio, setIsEditingBio] = useState(false); // Show editor
     
-    //current user
-    const { currentUser } = useContext(CurrentUserContext);
-    
-    // useState to update bio
-    const [bio, setBio] = useState("");
-    const [bioValue, setBioValue]  = useState('');
-    const [isEditingBio, setIsEditingBio] = useState(false);
+    console.log(bio);
+    useEffect(() => {
+        if (currentUser) setBio(currentUser?.bio);
+    }, [currentUser]);
 
-    // function to click bio 
-    const handleBioChange = (e) => setBioValue(e.target.value);
+    const updateBio = async () => {
+        setBio(bioValue);
+        setIsEditingBio(false);
+        const user = await updateUser(currentUser.id, "bio", bioValue);
+    };
 
     return <>
-    <h2>{currentUser?.username}</h2>
-    {isEditingBio ? (
-    <>
-    <textarea value={bioValue} onChange={handleBioChange} placeholder="Type your bio here!!!"/>
-    <button onClick={() => {setIsEditingBio(false); setBio(bioValue)}}>Save</button>
-    <button onClick={() => {setIsEditingBio(false); setBioValue(bio)}}>Cancel</button>
-    </>
-    ) : (
-    <>
-    <p>{bio || "No bio available."}</p>
-    <button onClick={() => setIsEditingBio(true)}>Edit</button>
-    </>
-    )}
-
+        <h2>{currentUser?.username}</h2>
+        <p>{bio}</p>
+        <button onClick={() => setIsEditingBio(true)}>Edit</button>
+        {isEditingBio ?
+        <div className="edit_modal" >
+            <textarea value={bioValue} onChange={(e) => setBioValue(e.target.value)} placeholder="Type your new bio here!!!"/>
+            <button onClick={updateBio}>Save</button>
+            <button onClick={() => {setBioValue(bio); setIsEditingBio(false)}}>Cancel</button>
+        </div>
+        : <></>}
     </>
 }
