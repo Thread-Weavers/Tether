@@ -1,74 +1,98 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import CurrentUserContext from "../contexts/current-user-context";
-import { createReminder } from "../adapters/reminder-adapter";
+import { createReminder, getAllReminders, updateReminder, deleteReminder } from "../adapters/reminder-adapter";
 
-export default function Goals() {
+export default function Reminders() {
     
-    //useState to update reminder
+    // useState to manage reminders
     const [reminders, setReminders] = useState([]);
     const [newReminder, setNewReminder] = useState("");
     const [isAddingReminder, setIsAddingReminder] = useState(false);
-
-    // useState to handle editing a reminder
     const [editReminderIndex, setEditReminderIndex] = useState(null);
     const [editReminderValue, setEditReminderValue] = useState("");
+    const [loading, setLoading] = useState(true);
 
-    // function to handle reminder
+    // Fetch existing reminders
+    useEffect(() => {
+        const fetchReminders = async () => {
+            const fetchedReminders = await getAllReminders();
+            setReminders(fetchedReminders);
+            setLoading(false);
+        };
+        fetchReminders();
+    }, []);
+
+    // Handle new reminder input change
     const handleNewReminderChange = (e) => setNewReminder(e.target.value);
 
-    // Reminders POST
-    const sendReminders = async() => {
+    // Create reminder
+    const sendReminders = async () => {
         try {
-            const response = await createReminder(newReminder)
-            console.log(response);
+            const response = await createReminder(newReminder);
+            console.log(response[0]);
+            setReminders([...reminders, response[0]]);
         } catch (error) {
-            console.warn(error.message)
+            console.warn(error.message);
         }
-    }
+    };
 
-    // add reminder
+    // Add reminder
     const addReminder = () => {
         if (newReminder.trim()) {
-            setReminders([...reminders, { text: newReminder, completed: false }]);
+            sendReminders();
             setNewReminder("");
             setIsAddingReminder(false);
-            sendReminders();
         }
     };
-    
-    // remove reminder
-    const removeReminder = (index) => {
-        setEditReminderIndex(null);
-        setEditReminderValue("");
-        setReminders(reminders.filter((_, i) => i !== index));
+
+    // Remove reminder
+    const removeReminder = async (index) => {
+        const reminderToDelete = reminders[index];
+        try {
+            await deleteReminder(reminderToDelete.id);
+            setReminders(reminders.filter((_, i) => i !== index));
+        } catch (error) {
+            console.warn(error.message);
+        }
     };
 
-    // start editing reminder
+    // Start editing reminder
     const startEditingReminder = (index) => {
         setEditReminderIndex(index);
         setEditReminderValue(reminders[index].text);
     };
 
-    // save edited reminder
-    const saveEditedReminder = () => {
+    // Save edited reminder
+    const saveEditedReminder = async () => {
         const updatedReminders = [...reminders];
-        updatedReminders[editReminderIndex].text = editReminderValue;
-        setReminders(updatedReminders);
-        setEditReminderIndex(null);
-        setEditReminderValue("");
+        updatedReminders[editReminderIndex].content = editReminderValue;
+
+        try {
+            await updateReminder({ id: reminders[editReminderIndex].id, target: "content", value: editReminderValue });
+            setReminders(updatedReminders);
+        } catch (error) {
+            console.warn(error.message);
+        } finally {
+            setEditReminderIndex(null);
+            setEditReminderValue("");
+        }
     };
 
-    // cancel editing reminder
+    // Cancel editing reminder
     const cancelEditReminder = () => {
         setEditReminderIndex(null);
         setEditReminderValue("");
     };
 
-    // toggle complete
+    // Toggle complete
     const toggleComplete = (index) => {
         const updatedReminders = [...reminders];
         updatedReminders[index].completed = !updatedReminders[index].completed;
         setReminders(updatedReminders);
+    };
+
+    if (loading) {
+        return <p>Loading Reminders...</p>;
     }
 
     return <>
@@ -82,7 +106,7 @@ export default function Goals() {
         <button onClick={() => setIsAddingReminder(false)}>Cancel</button>
     </div>
     )}
-
+    
     <ul>
         {reminders.map((reminder, index) => (
         <li key={index} className={reminder.completed ? "completed" : ""}>
@@ -95,12 +119,12 @@ export default function Goals() {
             </>
             ) : (
             <>
-            <span className={reminder.completed ? "completed" : ""}>{reminder.text}</span>
-            <button onClick={() => startEditingGoal(index)}>Edit</button>
+            <span className={reminder.completed ? "completed" : ""}>{reminder.content}</span>
+            <button onClick={() => startEditingReminder(index)}>Edit</button>
             <button onClick={() => toggleComplete(index)}>
                 {reminder.completed ? "Incomplete" : "Complete"}
-            </button> 
-            <button onClick={() => startEditingReminder(index)}>Edit</button>           
+            </button>
+            <button onClick={() => removeReminder(index)}>Remove</button>
             </>
             )}
         </li>
