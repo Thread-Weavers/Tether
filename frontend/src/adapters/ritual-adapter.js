@@ -11,7 +11,7 @@ export const createRitual = async (content, isPublic = false) => {
 // For this one adapter, if an error occurs, we handle it here by printing
 // the error and return an empty array
 export const getAllRituals = async (id) => {
-  const [rituals, error] = await fetchHandler(baseUrl, basicFetchWithBody({ id }));
+  const [rituals, error] = await fetchHandler(baseUrl);
   if (error) console.log(error); // print the error for simplicity.
   return rituals || [];
 };
@@ -24,6 +24,6 @@ export const updateRitual = async ({ id, target, value }) => {
   return fetchHandler(`${baseUrl}/${id}`, getPatchOptions({ target, value }))
 }
 
-export const deleteRitual = async ({}) => {
+export const deleteRitual = async (id) => {
   return fetchHandler(`${baseUrl}/${id}`, deleteOptions);
 }
