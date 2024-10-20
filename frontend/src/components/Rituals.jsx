@@ -1,6 +1,6 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import CurrentUserContext from "../contexts/current-user-context";
-import { createReminder } from "../adapters/reminder-adapter";
+import { createRitual, getAllRituals, updateRitual, deleteRitual } from "../adapters/ritual-adapter";
 
 export default function Goals() {
     
@@ -8,39 +8,53 @@ export default function Goals() {
     const [rituals, setRituals] = useState([]);
     const [newRitual, setNewRitual] = useState("");
     const [isAddingRitual, setIsAddingRitual] = useState(false);
-
-    // useState to handle editing a Ritual
     const [editRitualIndex, setEditRitualIndex] = useState(null);
     const [editRitualValue, setEditRitualValue] = useState("");
+    const [loading, setLoading] = useState(true);
     
-    // function to handle ritual
+    // fetch existing rituals
+    useEffect(() => {
+        const fetchRituals = async () => {
+            const fetchedRituals = await getAllRituals();
+            setRituals(fetchedRituals);
+            console.log(fetchedRituals);
+            setLoading(false);
+        };
+        fetchRituals();
+    }, []);
+
+    // function to handle ritual input
     const handleNewRitualChange = (e) => setNewRitual(e.target.value);
 
-    // Ritual POST
+    // fetch POST ritual
     const sendRituals = async() => {
         try {
-            const response = await createRitual(newRitual)
-            console.log(response);
+            const response = await createRitual(newRitual);
+            console.log(response[0]);
+            setRituals([...rituals, response[0]]);
         } catch (error) {
-            console.warn(error.message)
+            console.warn(error.message);
         }
     }
 
-    // add  ritual
+    // add ritual
     const addRitual = () => {
         if(newRitual.trim()){
-            setRituals([...rituals, { text: newRitual, completed: false }]);
+            sendRituals();
             setNewRitual("");
             setIsAddingRitual(false);
-            sendRituals();
         }
     }
     
     // remove ritual
-    const removeRitual = (index) => {
-        setEditRitualIndex(null);
-        setEditRitualValue("");
-        setRituals(rituals.filter((_, i) => i !== index));
+    const removeRitual = async (index) => {
+        const ritualToDelete = rituals[index];
+        try {
+            await deleteRitual(ritualToDelete.id);
+            setRituals(rituals.filter((_, i) => i !== index));
+        } catch (error) {
+            console.warn(error.message);
+        }
     }
 
     // start editing ritual
@@ -50,12 +64,19 @@ export default function Goals() {
     };
 
     // save edited ritual
-    const saveEditedRitual = () => {
+    const saveEditedRitual = async () => {
         const updatedRituals = [...rituals];
-        updatedRituals[editRitualIndex].text = editRitualValue;
-        setRituals(updatedRituals);
-        setEditRitualIndex(null);
-        setEditRitualValue("");
+        updatedRituals[editRitualIndex].content = editRitualValue;
+
+        try {
+            await updateRitual({ id: rituals[editRitualIndex].id, target: "content", value: editRitualValue }); 
+            setRituals(updatedRituals);
+        } catch (error) {
+            console.warn(error.message);
+        } finally {
+            setEditRitualIndex(null);
+            setEditRitualValue("");
+        }
     };
 
     // cancel editing ritual
@@ -69,6 +90,10 @@ export default function Goals() {
         const updatedRituals = [...rituals];
         updatedRituals[index].completed = !updatedRituals[index].completed;
         setRituals(updatedRituals);
+    }
+
+    if (loading) {
+        return <p>Loading Rituals...</p>;
     }
 
     return <>
@@ -95,12 +120,12 @@ export default function Goals() {
             </>
             ) : (
             <>
-            <span className={ritual.completed ? "completed" : ""}>{ritual.text}</span>
+            <span className={ritual.completed ? "completed" : ""}>{ritual.content}</span>
             <button onClick={() => startEditingRitual(index)}>Edit</button>
             <button onClick={() => toggleComplete(index)}>
                 {ritual.completed ? "Incomplete" : "Complete"}
-            </button> 
-            <button onClick={() => startEditingRitual(index)}>Edit</button>           
+            </button>
+            <button onClick={() => removeRitual(index)}>Remove</button>        
             </>
             )}
         </li>
