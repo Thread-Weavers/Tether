@@ -5,19 +5,19 @@ import { updateUser } from "../adapters/user-adapter";
 export default function Bio() {
     const { currentUser } = useContext(CurrentUserContext); // Current User
     // Bio States
-    const [bio, setBio] = useState("No bio"); // Initial bio
+    const [bio, setBio] = useState("Loading bio..."); // Initial bio
     const [bioValue, setBioValue]  = useState(""); // New bio
     const [isEditingBio, setIsEditingBio] = useState(false); // Show editor
     
+    console.log(bio);
     useEffect(() => {
-        setBio(currentUser?.bio);
-    });
+        if (currentUser) setBio(currentUser?.bio);
+    }, [currentUser]);
 
     const updateBio = async () => {
         setBio(bioValue);
         setIsEditingBio(false);
         const user = await updateUser(currentUser.id, "bio", bioValue);
-        console.log(user);
     };
 
     return <>
