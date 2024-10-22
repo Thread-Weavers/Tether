@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAllGoals } from "../adapters/goal-adapter";
+import { getAllPublicGoals } from "../adapters/goal-adapter";
 
 export default function GoalsList() {
     const [goals, setGoals] = useState([]);
@@ -8,10 +8,9 @@ export default function GoalsList() {
     // Fetch existing goals
     useEffect(() => {
         const fetchGoals = async () => {
-            const fetchedGoals = await getAllGoals();
+            const fetchedGoals = await getAllPublicGoals();
             console.log('FETCHED: ', fetchedGoals)
-            const publicGoals = fetchedGoals.filter(goal => goal.is_public);
-            setGoals(publicGoals);
+            setGoals(fetchedGoals);
             setLoading(false);
         };
         fetchGoals();

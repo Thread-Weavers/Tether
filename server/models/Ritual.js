@@ -17,6 +17,12 @@ class Ritual {
     return result.rows.map((rawRitualData) => new Ritual(rawRitualData));
   }
 
+  static async listPublics(userId) {
+    const query = `SELECT * FROM rituals WHERE user_id = ? AND is_public = true`;
+    const result = await knex.raw(query, [userId]);
+    return result.rows.map((rawRitualData) => new Ritual(rawRitualData));
+  }
+
   static async find(id) {
     const query = `SELECT * FROM rituals WHERE id = ?`;
     const result = await knex.raw(query, [id]);

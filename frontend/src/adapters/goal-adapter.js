@@ -17,6 +17,12 @@ export const getAllGoals = async (id) => {
   return goals || [];
 };
 
+export const getAllPublicGoals = async (id) => {
+  const [goals, error] = await fetchHandler(baseUrl + "public/");
+  if (error) console.log(error); // print the error for simplicity.
+  return goals || [];
+};
+
 export const getGoal = async (id) => {
   return fetchHandler(`${baseUrl}/${id}`);
 }

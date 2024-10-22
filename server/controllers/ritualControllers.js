@@ -18,6 +18,14 @@ exports.listRituals = async (req, res) => {
     res.send(userRituals);
 }
 
+exports.listPublicRituals = async (req, res) => {
+    const userId = req.session.userId;
+    // if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
+    const userRituals = await Ritual.listPublics(userId);
+    res.send(userRituals);
+}
+
+
 exports.showRitual = async (req, res) => {
     const { id } = req.params;
     const userId = req.session.userId;

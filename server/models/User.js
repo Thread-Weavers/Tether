@@ -94,9 +94,18 @@ class User {
       WHERE id=?
       RETURNING *
     `
-    const result = await knex.raw(query, [value, id])
+    const result = await knex.raw(query, [value, id]);
     const rawUpdatedUser = result.rows[0];
     return rawUpdatedUser ? new User(rawUpdatedUser) : null;
+  }
+
+  static async getUnmatchedUsers() {
+    const query = `
+      SELECT * FROM users
+      WHERE is_partnered = false;
+    `
+    const result = await knex.raw(query);
+    return result.rows.map((rawUserData) => new User(rawUserData));
   }
 }
 
