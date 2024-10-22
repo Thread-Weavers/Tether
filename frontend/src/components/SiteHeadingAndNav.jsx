@@ -18,11 +18,14 @@ export default function SiteHeadingAndNav() {
               <li><NavLink to={`/users/${currentUser.id}/profile`}>Profile</NavLink></li>
               <li><NavLink to={`/users/${currentUser.id}/your-tether`}>Your Tether</NavLink></li>
               <li><NavLink to='/chat'>Chat</NavLink></li>
-
             </>
             : <>
               <li><NavLink to='/chat'>Chat</NavLink></li>
               <li><NavLink to='/questionnaire'>Questionnaire</NavLink></li>
+            </>
+            : <>
+              <li><NavLink to='/login'>Login</NavLink></li>
+              <li><NavLink to='/sign-up'>Sign Up</NavLink></li>
             </>
         }
       </ul>

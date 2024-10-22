@@ -1,20 +1,14 @@
 ### 🏙️ Mission Statement
-Clearly state the purpose and objectives of the project in a straightforward manner. Avoid unnecessary jargon or technical language that might confuse readers.
-* Keep it concise (1-3 sentences)
 
-*Example:* At Prints For A Purpose, our mission is to connect individuals in need of assistive devices with a compassionate global community of skilled builders. Using 3D printing technology, we can create affordable solutions that enhance independence and transform lives.
+At Thread Weavers, Our mission is to foster meaningful connections among individuals facing mental health challenges, providing accountability while reducing feelings of loneliness. We aim to create a supportive community where users can share their experiences and seek encouragement, ultimately enhancing their well-being on their mental health journeys.
+
 ___
 
 ### 🚀 Problem Statement
 
-Clearly define the problem or challenge your project aims to address. Explain why this problem is important and how your project will provide a solution.
-* Who the application's audience is
-* What the application does for the user
-* Why the user would use the application
+Many individuals experience mental health issues that leave them feeling isolated and overwhelmed, especially in the aftermath of COVID-19. With a significant portion of adults reporting feelings of loneliness, our application targets those who seek a safe space to connect with others facing similar challenges. By offering an anonymous support platform, we aim to bridge the gap between isolation and meaningful interaction, helping users maintain their mental health through accountability and community support.
 
-*Example:* Our application would mainly serve individuals with disability or mobility issues under financial or physical constraints. A priority would be those who live in underprivileged communities, conflict-affected areas, or communities with limited healthcare infrastructure. Our product will leverage the power of technology and community collaboration to make assistive devices more accessible and affordable to those in need. This is done by connecting individuals to a network of builders who facilitate the creation and distribution of affordable, 3D-printed devices.
 ___
-
 
 ### 📝 Features & User Stories
 * Describes all the features and their purpose.
