@@ -11,6 +11,7 @@ import UsersPage from './pages/Users';
 import UserPage from './pages/User';
 import ProfilePage from './pages/Profile';
 import YourTetherPage from './pages/YourTether';
+import Chat from './pages/Chat';
 
 export default function App() {
   const { setCurrentUser } = useContext(UserContext);
@@ -29,6 +30,7 @@ export default function App() {
         <Route path='/users/:id' element={<UserPage />} />
         <Route path='/users/:id/profile' element={<ProfilePage />} />
         <Route path='/users/:id/your-tether' element={<YourTetherPage />} />
+        <Route path='/chat' element={<Chat />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </main>
