@@ -8,7 +8,8 @@ export default function Rituals() {
     useEffect(() => {
         const fetchRituals = async () => {
             const fetchedRituals = await getAllRituals();
-            setRituals(fetchedRituals);
+            const publicRituals = fetchedRituals.filter(ritual => ritual.is_public);
+            setRituals(publicRituals);
             setLoading(false);
         };
         fetchRituals();
