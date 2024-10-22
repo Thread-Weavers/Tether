@@ -11,7 +11,7 @@ exports.createUser = async (req, res) => {
   req.session.userId = user.id;
 
   const unmatchedUsers = await User.getUnmatchedUsers();
-  const randomId = Math.random() * (unmatchedUsers.length - 0) + 0;
+  const randomId = Math.round(Math.random() * (unmatchedUsers.length - 0) + 0);
   
   User.update(user.id, "is_partnered", true);
   User.update(user.id, "partner_id", randomId);
