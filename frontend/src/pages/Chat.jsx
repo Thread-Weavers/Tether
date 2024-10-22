@@ -25,7 +25,7 @@ export default function Chat() {
     <ul id="messages" ref={messages}>
         {tags.map((tag, index) => (
             <li key={index} data-sender={tag.sender === socket.id ? "me" : "other"}>
-                {tag.message}
+                {"ID " + tag.sender + " says: " + tag.message}
             </li>
         ))}
     </ul>

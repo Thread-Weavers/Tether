@@ -32,9 +32,6 @@ export default function Rituals() {
                 {rituals.map((ritual, index) => (
                     <li key={index} className={ritual.completed ? "completed" : ""}>
                         <span>{ritual.content}</span>
-                        <button onClick={() => toggleComplete(index)}>
-                            {ritual.completed ? "Incomplete" : "Complete"}
-                        </button>
                     </li>
                 ))}
             </ul>

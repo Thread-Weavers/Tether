@@ -32,9 +32,6 @@ export default function RemindersList() {
                 {reminders.map((reminder, index) => (
                     <li key={index} className={reminder.completed ? "completed" : ""}>
                         <span>{reminder.content}</span>
-                        <button onClick={() => toggleComplete(index)}>
-                            {reminder.completed ? "Incomplete" : "Complete"}
-                        </button>
                     </li>
                 ))}
             </ul>
