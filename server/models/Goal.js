@@ -17,6 +17,12 @@ class Goal {
     return result.rows.map((rawGoalData) => new Goal(rawGoalData));
   }
 
+  static async listPublics(userId) {
+    const query = `SELECT * FROM goals WHERE user_id = ? AND is_public = true`;
+    const result = await knex.raw(query, [userId]);
+    return result.rows.map((rawGoalData) => new Goal(rawGoalData));
+  }
+
   static async find(id) {
     const query = `SELECT * FROM goals WHERE id = ?`;
     const result = await knex.raw(query, [id]);

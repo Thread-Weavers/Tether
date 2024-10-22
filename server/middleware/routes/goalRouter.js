@@ -6,6 +6,7 @@ const goalRouter = express.Router();
 
 goalRouter.post('/', checkAuthentication, goalControllers.createGoal);
 goalRouter.get('/', checkAuthentication, goalControllers.listGoals);
+goalRouter.get('/public', checkAuthentication, goalControllers.listPublicGoals);
 goalRouter.get('/:id', checkAuthentication, goalControllers.showGoal);
 goalRouter.patch('/:id', checkAuthentication, goalControllers.updateGoal);
 goalRouter.delete('/:id', checkAuthentication, goalControllers.deleteGoal);

@@ -18,6 +18,13 @@ exports.listGoals = async (req, res) => {
     res.send(userGoals);
 }
 
+exports.listPublicGoals = async (req, res) => {
+    const userId = req.session.userId;
+    // if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
+    const userGoals = await Goal.listPublics(userId);
+    res.send(userGoals);
+}
+
 exports.showGoal = async (req, res) => {
     const { id } = req.params;
     const userId = req.session.userId;
