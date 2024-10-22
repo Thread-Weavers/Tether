@@ -9,7 +9,8 @@ export default function GoalsList() {
     useEffect(() => {
         const fetchGoals = async () => {
             const fetchedGoals = await getAllGoals();
-            const publicGoals = fetchedGoals.filter(goal => goal.isPublic);
+            console.log('FETCHED: ', fetchedGoals)
+            const publicGoals = fetchedGoals.filter(goal => goal.is_public);
             setGoals(publicGoals);
             setLoading(false);
         };
