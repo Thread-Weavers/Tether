@@ -1,17 +1,17 @@
 import { useContext, useState } from "react";
 import CurrentUserContext from "../contexts/current-user-context";
 import Bio from "../components/Bio";
-import Goals from "../components/Goals";
-import Reminders from "../components/Reminders";
-import Rituals from "../components/Rituals";
+import GoalsList from "../components/GoalsList";
+import RemindersList from "../components/RemindersList";
+import RitualsList from "../components/RitualsList";
 
 export default function YourTetherPage() {
 
     
     return <>
     <Bio />
-    <Goals  />
-    <Reminders />
-    <Rituals />    
+    <GoalsList  />
+    <RemindersList />
+    <RitualsList />    
     </>
 }

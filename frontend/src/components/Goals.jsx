@@ -11,6 +11,7 @@ export default function Goals() {
     const [editGoalIndex, setEditGoalIndex] = useState(null);
     const [editGoalValue, setEditGoalValue] = useState("");
     const [loading, setLoading] = useState(true);
+    const [isPublic, setIsPublic] = useState(false);
 
     // fetch existing goals
     useEffect(() => {
@@ -29,7 +30,7 @@ export default function Goals() {
     // fetch POST goal
     const sendGoals = async() => {
         try {
-            const response = await createGoal(newGoal);
+            const response = await createGoal(newGoal, isPublic);
             console.log(response[0]);
             setGoals([...goals, response[0]]);
         } catch (error) {
@@ -67,6 +68,7 @@ export default function Goals() {
     const saveEditedGoal = async () => {
         const updatedGoals = [...goals];
         updatedGoals[editGoalIndex].content = editGoalValue;
+        updatedGoals[editGoalIndex].isPublic = isPublic;
 
         try {
             await updateGoal({ id: goals[editGoalIndex].id, target: "content", value: editGoalValue }); 
@@ -103,6 +105,10 @@ export default function Goals() {
     <div className="modal">
         <h4>Add a New Goal</h4>
         <input type="text" value={newGoal} onChange={handleNewGoalChange} placeholder="Type your goal here!" />
+        <span>{isPublic ? "This goal is public" : "This goal is private"}</span>
+        <button onClick={() => setIsPublic(!isPublic)}>
+            {isPublic ? "Make Private" : "Make Public"}
+        </button>
         <button onClick={addGoal}>Save</button>
         <button onClick={() => setIsAddingGoal(false)}>Cancel</button>
     </div>

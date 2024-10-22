@@ -11,6 +11,7 @@ export default function Reminders() {
     const [editReminderIndex, setEditReminderIndex] = useState(null);
     const [editReminderValue, setEditReminderValue] = useState("");
     const [loading, setLoading] = useState(true);
+    const [isPublic, setIsPublic] = useState(false);
 
     // Fetch existing reminders
     useEffect(() => {
@@ -28,7 +29,7 @@ export default function Reminders() {
     // Create reminder
     const sendReminders = async () => {
         try {
-            const response = await createReminder(newReminder);
+            const response = await createReminder(newReminder, isPublic);
             console.log(response[0]);
             setReminders([...reminders, response[0]]);
         } catch (error) {
@@ -66,6 +67,7 @@ export default function Reminders() {
     const saveEditedReminder = async () => {
         const updatedReminders = [...reminders];
         updatedReminders[editReminderIndex].content = editReminderValue;
+        updatedReminders[editReminderIndex].isPublic = isPublic;
 
         try {
             await updateReminder({ id: reminders[editReminderIndex].id, target: "content", value: editReminderValue });
@@ -102,6 +104,10 @@ export default function Reminders() {
     <div className="modal">
         <h4>Add a New Reminder</h4>
         <input type="text" value={newReminder} onChange={handleNewReminderChange} placeholder="Type your reminder here!" />
+        <span>{isPublic ? "This reminder is public" : "This reminder is private"}</span>
+        <button onClick={() => setIsPublic(!isPublic)}>
+            {isPublic ? "Make Private" : "Make Public"}
+        </button>
         <button onClick={addReminder}>Save</button>
         <button onClick={() => setIsAddingReminder(false)}>Cancel</button>
     </div>
