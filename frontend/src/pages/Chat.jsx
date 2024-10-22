@@ -12,23 +12,21 @@ export default function Chat() {
         e.preventDefault();
         const input = e.target.children[0];
         if (input.value) {
-          socket.emit('chat message', input.value);
+          socket.emit('chat message', input.value, socket.id);
           input.value = '';
         }
     };
 
-    socket.on('chat message', (msg) => {
-        setTags([...tags, msg]);
-        console.log(msg);
+    socket.on('chat message', (msg, sender) => {
+        setTags([...tags, {message: msg, sender: sender}]);
         // window.scrollTo(0, document.body.scrollHeight);
     });
-    console.log(tags);
 
     return <>
     <ul id="messages" ref={messages}>
         {tags.map((tag, index) => (
-            <li key={index}>
-                {tag}
+            <li key={index} data-sender={tag.sender === socket.id ? "me" : "other"}>
+                {tag.message}
             </li>
         ))}
     </ul>
