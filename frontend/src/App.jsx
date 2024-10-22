@@ -11,6 +11,7 @@ import UsersPage from './pages/Users';
 import UserPage from './pages/User';
 import ProfilePage from './pages/Profile';
 import YourTetherPage from './pages/YourTether';
+import QuestionnairePage from './pages/QuestionnairePage';
 import Chat from './pages/Chat';
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
     <main>
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/questionnaire' element={<QuestionnairePage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/sign-up' element={<SignUpPage />} />
         <Route path='/users' element={<UsersPage />} />
