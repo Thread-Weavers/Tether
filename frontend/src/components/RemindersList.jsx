@@ -8,7 +8,8 @@ export default function RemindersList() {
     useEffect(() => {
         const fetchReminders = async () => {
             const fetchedReminders = await getAllReminders();
-            setReminders(fetchedReminders);
+            const publicReminders = fetchedReminders.filter(reminder => reminder.is_public);
+            setReminders(publicReminders);
             setLoading(false);
         };
         fetchReminders();
