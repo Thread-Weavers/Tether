@@ -2,7 +2,7 @@
 // with the provided body and the remaining options
 import { fetchHandler, getPostOptions, getPatchOptions, basicFetchWithBody, deleteOptions } from "../utils/fetchingUtils";
 
-const baseUrl = '/api/rituals';
+const baseUrl = '/api/rituals/';
 
 export const createRitual = async (content, isPublic = false) => {
   return fetchHandler(baseUrl, getPostOptions({ content, isPublic }))
@@ -12,6 +12,12 @@ export const createRitual = async (content, isPublic = false) => {
 // the error and return an empty array
 export const getAllRituals = async (id) => {
   const [rituals, error] = await fetchHandler(baseUrl);
+  if (error) console.log(error); // print the error for simplicity.
+  return rituals || [];
+};
+
+export const getAllPublicRituals = async (id) => {
+  const [rituals, error] = await fetchHandler(baseUrl + "public/");
   if (error) console.log(error); // print the error for simplicity.
   return rituals || [];
 };

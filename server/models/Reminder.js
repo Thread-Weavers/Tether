@@ -17,6 +17,12 @@ class Reminder {
     return result.rows.map((rawReminderData) => new Reminder(rawReminderData));
   }
 
+  static async listPublics(userId) {
+    const query = `SELECT * FROM reminders WHERE user_id = ? AND is_public = true`;
+    const result = await knex.raw(query, [userId]);
+    return result.rows.map((rawReminderData) => new Reminder(rawReminderData));
+  }
+
   static async find(id) {
     const query = `SELECT * FROM reminders WHERE id = ?`;
     const result = await knex.raw(query, [id]);

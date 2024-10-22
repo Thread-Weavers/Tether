@@ -10,11 +10,10 @@ export default function Chat() {
 
     const sendMessage = (e) => {
         e.preventDefault();
-        const input = e.target.children[0];
-        if (input.value) {
-          socket.emit('chat message', input.value, socket.id);
-          input.value = '';
+        if (message) {
+          socket.emit('chat message', message, socket.id)
         }
+        setMessage("");
     };
 
     socket.on('chat message', (msg, sender) => {
