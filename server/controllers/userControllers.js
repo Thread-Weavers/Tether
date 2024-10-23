@@ -63,7 +63,7 @@ exports.findTether = async (req, res) => {
     User.update(id, "partner_id", randomId);
     User.update(randomId, "is_partnered", true);
     User.update(randomId, "partner_id", id);
+    const partner = await User.find(randomId);
+    res.send(partner);
   } else res.sendStatus(409);
-
-  res.send(user);
 }

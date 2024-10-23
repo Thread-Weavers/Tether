@@ -9,6 +9,7 @@ export default function Bio() {
     const [bio, setBio] = useState("Loading bio..."); // Initial bio
     const [bioValue, setBioValue]  = useState(""); // New bio
     const [isEditingBio, setIsEditingBio] = useState(false); // Show editor
+    const [loading, setLoading] = useState(true); // load bio
     
     console.log(bio);
     useEffect(() => {
@@ -16,9 +17,15 @@ export default function Bio() {
     }, [currentUser]);
 
     const updateBio = async () => {
-        setBio(bioValue);
-        setIsEditingBio(false);
-        const user = await updateUser(currentUser.id, "bio", bioValue);
+        setLoading(true);
+        try {
+            const user = await updateUser(currentUser.id, "bio", bioValue);
+            setBio(bioValue);
+            setIsEditingBio(false);
+        } catch (error) {
+            console.warn(error.message)
+            
+        }
     };
 
     return <>
