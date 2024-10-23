@@ -8,6 +8,9 @@ import { findTether } from "../adapters/user-adapter";
 import BioTether from "../components/BioTether";
 import { getUser } from "../adapters/user-adapter";
 import FindTetherButton from "../components/FindTetherButton";
+import PartnerGoalsList from "../components/PartnerGoalsList";
+import PartnerRemindersList from "../components/PartnerRemindersList";
+import PartnerRitualsList from "../components/PartnerRitualsList";
 
 export default function YourTetherPage() {
     const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
@@ -31,8 +34,11 @@ export default function YourTetherPage() {
     <RemindersList />
     <RitualsList />    
     {currentUser && !currentUser['is_partnered'] && ( 
-    <FindTetherButton setPartner={setPartner} /> // Use the new component
+    <FindTetherButton setPartner={setPartner} />
     )}
     {partner && <BioTether partner={partner} />}
+    {partner && <PartnerGoalsList partner={partner} />}
+    {partner && <PartnerRemindersList partner={partner} />}
+    {partner && <PartnerRitualsList partner={partner} />}
     </>
 }
