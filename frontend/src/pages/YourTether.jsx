@@ -1,26 +1,38 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import CurrentUserContext from "../contexts/current-user-context";
 import Bio from "../components/Bio";
 import GoalsList from "../components/GoalsList";
 import RemindersList from "../components/RemindersList";
 import RitualsList from "../components/RitualsList";
 import { findTether } from "../adapters/user-adapter";
+import BioTether from "../components/BioTether";
+import { getUser } from "../adapters/user-adapter";
+import FindTetherButton from "../components/FindTetherButton";
 
 export default function YourTetherPage() {
     const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+    const [partner, setPartner] = useState(null);
 
-    const handleButton = async () => {
-        console.log("let's find you a tether!");
-        const tethered = await findTether(currentUser.id);
-        if (!tethered) console.log('No users available');
-        else console.log(tethered);
-    }
+
+    useEffect(() => {
+        const loadPartner = async () => {
+          if(currentUser && currentUser['is_partnered']){
+          const [user, error] = await getUser(currentUser['partner_id']);
+          if (error) return setErrorText(error.message);
+          setPartner(user);}
+        };
+    
+        loadPartner();
+      }, [currentUser]);
     
     return <>
     <Bio />
     <GoalsList  />
     <RemindersList />
     <RitualsList />    
-    <button onClick={handleButton} >Look for Tether</button>
+    {currentUser && !currentUser['is_partnered'] && ( 
+    <FindTetherButton setPartner={setPartner} /> // Use the new component
+    )}
+    {partner && <BioTether partner={partner} />}
     </>
 }
