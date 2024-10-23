@@ -1,3 +1,5 @@
+import { useNavigate , Navigate } from "react-router-dom";
+
 const basicFetchOptions = {
   method: 'GET',
   credentials: 'include',
@@ -43,4 +45,26 @@ export const fetchHandler = async (url, options = {}) => {
     console.warn(error);
     return [null, error];
   }
+};
+
+export const handleQuestionnaireSubmit = async (answers) => {
+  const navigate = useNavigate();
+  try {
+    const response = await fetch('/api/questionnaire', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(answers),
+    });
+
+    if (response.ok) {
+      alert('Your answers have been submitted!');
+    } else {
+      alert('Submission failed.');
+    }
+  } catch (error) {
+    console.error('Error submitting answers:', error);
+  }
+  navigate('/');
 };

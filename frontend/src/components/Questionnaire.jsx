@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { handleQuestionnaireSubmit } from "../utils/fetchingUtils";
 
 const Questionnaire = () => {
   // Static questions and answer options
@@ -118,25 +119,7 @@ const Questionnaire = () => {
   };
 
   // Form submission
-  const handleSubmit = async () => {
-    try {
-      const response = await fetch('/api/questionnaire', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(answers),
-      });
-
-      if (response.ok) {
-        alert('Your answers have been submitted!');
-      } else {
-        alert('Submission failed.');
-      }
-    } catch (error) {
-      console.error('Error submitting answers:', error);
-    }
-  };
+  handleQuestionnaireSubmit(answers)
 
   return (
     <div className="questionnaire-container">

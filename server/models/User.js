@@ -70,7 +70,7 @@ class User {
     const rawUserData = result.rows[0];
     return new User(rawUserData);
   }
-
+  
   // Updates the user that matches the given id with a new username.
   // Returns the modified user, using the constructor to hide the passwordHash. 
   static async update(id, target, value) {
