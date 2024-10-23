@@ -109,6 +109,10 @@ class User {
     const result = await knex.raw(query);
     return result.rows.map((rawUserData) => new User(rawUserData));
   }
+
+  static async saveQuestionnaire() {
+    const query = ``
+  }
 }
 
 module.exports = User;
