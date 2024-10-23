@@ -54,7 +54,7 @@ exports.findTether = async (req, res) => {
   const { id } = req.params;
 
   const user = await User.find(id);
-  if(!user) res.sendStatus(404);
+  if (!user) res.sendStatus(404);
   
   const unmatchedUsers = await User.getUnmatchedUsers();
   if (unmatchedUsers.length !== 0) {
@@ -63,7 +63,7 @@ exports.findTether = async (req, res) => {
     User.update(id, "partner_id", randomId);
     User.update(randomId, "is_partnered", true);
     User.update(randomId, "partner_id", id);
-  }
+  } else res.sendStatus(409);
 
   res.send(user);
 }
