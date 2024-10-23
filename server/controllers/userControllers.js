@@ -11,12 +11,13 @@ exports.createUser = async (req, res) => {
   req.session.userId = user.id;
 
   const unmatchedUsers = await User.getUnmatchedUsers();
-  const randomId = Math.round(Math.random() * (unmatchedUsers.length - 0) + 0);
-  
-  User.update(user.id, "is_partnered", true);
-  User.update(user.id, "partner_id", randomId);
-  User.update(randomId, "is_partnered", true);
-  User.update(randomId, "partner_id", user.id);
+  if (unmatchedUsers.length !== 0) {
+    const randomId = Math.round(Math.random() * (unmatchedUsers.length - 0) + 0);
+    User.update(user.id, "is_partnered", true);
+    User.update(user.id, "partner_id", randomId);
+    User.update(randomId, "is_partnered", true);
+    User.update(randomId, "partner_id", user.id);
+  }
 
   res.send(user);
 };
@@ -48,3 +49,21 @@ exports.updateUser = async (req, res) => {
   if (!updatedUser) return res.sendStatus(404)
   res.send(updatedUser);
 };
+
+exports.findTether = async (req, res) => {
+  const { id } = req.params;
+
+  const user = await User.find(id);
+  if(!user) res.sendStatus(404);
+  
+  const unmatchedUsers = await User.getUnmatchedUsers();
+  if (unmatchedUsers.length !== 0) {
+    const randomId = Math.round(Math.random() * (unmatchedUsers.length - 0) + 0);
+    User.update(id, "is_partnered", true);
+    User.update(id, "partner_id", randomId);
+    User.update(randomId, "is_partnered", true);
+    User.update(randomId, "partner_id", id);
+  }
+
+  res.send(user);
+}
