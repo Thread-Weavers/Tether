@@ -1,4 +1,7 @@
 import { useNavigate , Navigate } from "react-router-dom";
+import CurrentUserContext from "../contexts/current-user-context";
+
+
 
 const basicFetchOptions = {
   method: 'GET',
@@ -48,7 +51,6 @@ export const fetchHandler = async (url, options = {}) => {
 };
 
 export const handleQuestionnaireSubmit = async (answers) => {
-  const navigate = useNavigate();
   try {
     const response = await fetch('/api/questionnaire', {
       method: 'POST',
@@ -66,5 +68,4 @@ export const handleQuestionnaireSubmit = async (answers) => {
   } catch (error) {
     console.error('Error submitting answers:', error);
   }
-  navigate('/');
 };
