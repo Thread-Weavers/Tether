@@ -1,9 +1,11 @@
 import '../styles/chat.css';
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
+import CurrentUserContext from '../contexts/current-user-context';
 import io from 'socket.io-client';
 const socket = io.connect("http://localhost:3000/");
 
 export default function Chat() {
+    const { currentUser } = useContext(CurrentUserContext);
     const [message, setMessage] = useState("");
     const messages = useRef(null);
     const [tags, setTags] = useState([]);
@@ -11,7 +13,7 @@ export default function Chat() {
     const sendMessage = (e) => {
         e.preventDefault();
         if (message) {
-          socket.emit('chat message', message, socket.id)
+          socket.emit('chat message', message, currentUser.username);
         }
         setMessage("");
     };
@@ -25,7 +27,7 @@ export default function Chat() {
     <ul id="messages" ref={messages}>
         {tags.map((tag, index) => (
             <li key={index} data-sender={tag.sender === socket.id ? "me" : "other"}>
-                {"ID " + tag.sender + " says: " + tag.message}
+                {tag.sender + " says: " + tag.message}
             </li>
         ))}
     </ul>
