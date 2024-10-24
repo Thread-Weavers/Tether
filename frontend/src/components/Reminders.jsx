@@ -3,7 +3,7 @@ import CurrentUserContext from "../contexts/current-user-context";
 import { createReminder, getAllReminders, updateReminder, deleteReminder } from "../adapters/reminder-adapter";
 
 export default function Reminders() {
-    
+    const { currentUser } = useContext(CurrentUserContext);
     // useState to manage reminders
     const [reminders, setReminders] = useState([]);
     const [newReminder, setNewReminder] = useState("");
@@ -16,12 +16,12 @@ export default function Reminders() {
     // Fetch existing reminders
     useEffect(() => {
         const fetchReminders = async () => {
-            const fetchedReminders = await getAllReminders();
+            const fetchedReminders = await getAllReminders(currentUser?.id);
             setReminders(fetchedReminders);
             setLoading(false);
         };
-        fetchReminders();
-    }, []);
+        if (currentUser) fetchReminders();
+    }, [currentUser]);
 
     // Handle new reminder input change
     const handleNewReminderChange = (e) => setNewReminder(e.target.value);

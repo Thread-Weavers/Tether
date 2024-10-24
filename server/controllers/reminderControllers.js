@@ -12,14 +12,14 @@ exports.createReminder = async (req, res) => {
   }
 
 exports.listReminders = async (req, res) => {
-    const userId = req.session.userId;
+    const { userId } = req.params;
     if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
     const userReminders = await Reminder.list(userId);
     res.send(userReminders);
 }
 
 exports.listPublicReminders = async (req, res) => {
-    const userId = req.session.userId;
+    const { userId } = req.params;
     // if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
     const userReminders = await Reminder.listPublics(userId);
     res.send(userReminders);
