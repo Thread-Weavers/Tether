@@ -15,16 +15,15 @@ import PartnerRitualsList from "../components/PartnerRitualsList";
 export default function YourTetherPage() {
     const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
     const [partner, setPartner] = useState(null);
-
+    console.log(partner);
 
     useEffect(() => {
         const loadPartner = async () => {
-          if(currentUser && currentUser['is_partnered']){
+          if(currentUser && currentUser.is_partnered) {
           const [user, error] = await getUser(currentUser['partner_id']);
           if (error) return setErrorText(error.message);
           setPartner(user);}
         };
-    
         loadPartner();
       }, [currentUser]);
     

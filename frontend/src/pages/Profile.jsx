@@ -6,10 +6,10 @@ import Reminders from "../components/Reminders";
 import Rituals from "../components/Rituals";
 
 export default function ProfilePage() {
-    
+
     return <>
-    <Bio />
-    <Goals  />
+    <Bio  />
+    <Goals />
     <Reminders />
     <Rituals />
     </>

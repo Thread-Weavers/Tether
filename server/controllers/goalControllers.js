@@ -12,14 +12,16 @@ exports.createGoal = async (req, res) => {
   }
 
 exports.listGoals = async (req, res) => {
-    const userId = req.session.userId;
+    const { userId } = req.params;
+    console.log(userId);
     if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
     const userGoals = await Goal.list(userId);
     res.send(userGoals);
 }
 
 exports.listPublicGoals = async (req, res) => {
-    const userId = req.session.userId;
+    const { userId } = req.params;
+    console.log(userId);
     // if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
     const userGoals = await Goal.listPublics(userId);
     res.send(userGoals);

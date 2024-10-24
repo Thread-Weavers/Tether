@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import CurrentUserContext from "../contexts/current-user-context";
 import { updateUser } from "../adapters/user-adapter";
 
-export default function BioTether({partner}) {
+export default function BioTether({ partner }) {
 
     return <>
     <div className="bio-tether">
