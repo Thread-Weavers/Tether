@@ -37,6 +37,7 @@ app.use('/api/users', userRouter);
 app.use('/api/goals', goalRouter);
 app.use('/api/reminders', reminderRouter);
 app.use('/api/rituals', ritualRouter);
+app.use('/api/questionnaire', questRouter);
 
 // Requests meant for the API will be sent along to the router.
 // For all other requests, send back the index.html file in the dist folder.
