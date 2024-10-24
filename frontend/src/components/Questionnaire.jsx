@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { handleQuestionnaireSubmit } from "../utils/fetchingUtils";
+import { useNavigate } from "react-router-dom";
+import CurrentUserContext from "../contexts/current-user-context";
 
 const Questionnaire = () => {
   // Static questions and answer options
+  const { currentUser } = useContext(CurrentUserContext)
+  const navigate = useNavigate();
+  
   const questions = [
   {
     question: "What kind of support do you prefer?",
@@ -45,7 +51,7 @@ const Questionnaire = () => {
         "A. Text messages",
         "B. Phone calls",
         "C. Video chats",
-        "D. I don’t mind either"
+        "D. I don't mind either"
     ]
   },
   {
@@ -118,25 +124,10 @@ const Questionnaire = () => {
   };
 
   // Form submission
-  const handleSubmit = async () => {
-    try {
-      const response = await fetch('/api/questionnaire', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(answers),
-      });
-
-      if (response.ok) {
-        alert('Your answers have been submitted!');
-      } else {
-        alert('Submission failed.');
-      }
-    } catch (error) {
-      console.error('Error submitting answers:', error);
-    }
-  };
+  const handleSubmit = () => {
+    handleQuestionnaireSubmit(answers)
+    navigate(`/users/${currentUser.id}/profile`);
+  }
 
   return (
     <div className="questionnaire-container">

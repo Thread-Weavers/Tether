@@ -4,6 +4,7 @@ import CurrentUserContext from '../contexts/current-user-context';
 import io from 'socket.io-client';
 const socket = io.connect("http://localhost:3000/");
 
+
 export default function Chat() {
     const { currentUser } = useContext(CurrentUserContext);
     const [message, setMessage] = useState("");

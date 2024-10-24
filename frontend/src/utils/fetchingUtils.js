@@ -44,3 +44,23 @@ export const fetchHandler = async (url, options = {}) => {
     return [null, error];
   }
 };
+
+export const handleQuestionnaireSubmit = async (answers) => {
+  try {
+    const response = await fetch('/api/questionnaire', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(answers),
+    });
+
+    if (response.ok) {
+      alert('Your answers have been submitted!');
+    } else {
+      alert('Submission failed.');
+    }
+  } catch (error) {
+    console.error('Error submitting answers:', error);
+  }
+};

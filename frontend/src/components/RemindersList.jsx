@@ -9,7 +9,7 @@ export default function RemindersList() {
 
     useEffect(() => {
         const fetchReminders = async () => {
-            const publicReminders = await getAllPublicReminders(currentUser?.partner_id);
+            const publicReminders = await getAllPublicReminders(currentUser?.id);
             setReminders(publicReminders);
             setLoading(false);
         };

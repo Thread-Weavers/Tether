@@ -12,6 +12,9 @@ export default function UserPage() {
   const [errorText, setErrorText] = useState(null);
   const { id } = useParams();
   const isCurrentUserProfile = currentUser && currentUser.id === Number(id);
+  console.log(currentUser)
+
+  // if (!currentUser.quest_flag) navigate('/questionnaire');
 
   useEffect(() => {
     const loadUser = async () => {
