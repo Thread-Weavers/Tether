@@ -5,6 +5,7 @@ export default function PartnerGoalsList({ partner }) {
     const [goals, setGoals] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    console.log(partner.id);
     useEffect(() => {
         const fetchGoals = async () => {
             if (partner) {

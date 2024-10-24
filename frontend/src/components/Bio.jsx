@@ -4,14 +4,13 @@ import { updateUser } from "../adapters/user-adapter";
 
 export default function Bio() {
     const { currentUser } = useContext(CurrentUserContext); // Current User
-    console.log(currentUser);
+    // console.log(currentUser);
     // Bio States
     const [bio, setBio] = useState("Loading bio..."); // Initial bio
     const [bioValue, setBioValue]  = useState(""); // New bio
     const [isEditingBio, setIsEditingBio] = useState(false); // Show editor
     const [loading, setLoading] = useState(true); // load bio
     
-    console.log(bio);
     useEffect(() => {
         if (currentUser) setBio(currentUser?.bio);
     }, [currentUser]);
@@ -24,7 +23,6 @@ export default function Bio() {
             setIsEditingBio(false);
         } catch (error) {
             console.warn(error.message)
-            
         }
     };
 

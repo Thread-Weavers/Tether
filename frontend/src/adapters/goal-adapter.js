@@ -12,13 +12,13 @@ export const createGoal = async (content, isPublic =  false) => {
 // For this one adapter, if an error occurs, we handle it here by printing
 // the error and return an empty array
 export const getAllGoals = async (id) => {
-  const [goals, error] = await fetchHandler(baseUrl);
+  const [goals, error] = await fetchHandler(baseUrl + `/${id}`);
   if (error) console.log(error); // print the error for simplicity.
   return goals || [];
 };
 
 export const getAllPublicGoals = async (id) => {
-  const [goals, error] = await fetchHandler(baseUrl + "public/");
+  const [goals, error] = await fetchHandler(baseUrl + `public/${id}`);
   if (error) console.log(error); // print the error for simplicity.
   return goals || [];
 };
