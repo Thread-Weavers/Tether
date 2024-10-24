@@ -1,25 +1,20 @@
-import { useState, useEffect } from "react";
-import { getAllReminders } from "../adapters/reminder-adapter";
+import { useState, useEffect, useContext } from "react";
+import CurrentUserContext from "../contexts/current-user-context";
+import { getAllPublicReminders } from "../adapters/reminder-adapter";
 
 export default function RemindersList() {
+    const { currentUser } = useContext(CurrentUserContext);
     const [reminders, setReminders] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchReminders = async () => {
-            const fetchedReminders = await getAllReminders();
-            const publicReminders = fetchedReminders.filter(reminder => reminder.is_public);
+            const publicReminders = await getAllPublicReminders(currentUser?.partner_id);
             setReminders(publicReminders);
             setLoading(false);
         };
-        fetchReminders();
-    }, []);
-
-    const toggleComplete = (index) => {
-        const updatedReminders = [...reminders];
-        updatedReminders[index].completed = !updatedReminders[index].completed;
-        setReminders(updatedReminders);
-    };
+        if (currentUser) fetchReminders();
+    }, [currentUser]);
 
     if (loading) {
         return <p>Loading Reminders...</p>;

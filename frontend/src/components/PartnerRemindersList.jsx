@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import CurrentUserContext from "../contexts/current-user-context";
 import { getAllPublicReminders } from "../adapters/reminder-adapter"; 
 
-export default function PartnerRemindersList({ partner }) {
+export default function PartnerRemindersList() {
+    const { currentUser } = useContext(CurrentUserContext);
     const [reminders, setReminders] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchReminders = async () => {
-            if (partner) {
-                const fetchedReminders = await getAllPublicReminders(partner.id); 
-                console.log('PARTNER REMINDERS FETCHED: ', fetchedReminders);
-                setReminders(fetchedReminders);
-                setLoading(false);
-            }
+            const fetchedReminders = await getAllPublicReminders(currentUser?.partner_id); 
+            console.log('PARTNER REMINDERS FETCHED: ', fetchedReminders);
+            setReminders(fetchedReminders);
+            setLoading(false);
         };
-        fetchReminders();
-    }, [partner]);
+        if (currentUser) fetchReminders();
+    }, [currentUser]);
 
     if (loading) {
         return <p>Loading Partner Reminders...</p>;
@@ -23,7 +23,7 @@ export default function PartnerRemindersList({ partner }) {
 
     return (
         <>
-            <h3>{partner.username}'s Reminders</h3>
+            <h3>Reminders</h3>
             <ul>
                 {reminders.map((reminder, index) => (
                     <li key={index} className={reminder.completed ? "completed" : ""}>

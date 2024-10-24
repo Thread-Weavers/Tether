@@ -3,6 +3,7 @@ import CurrentUserContext from "../contexts/current-user-context";
 import { createGoal, getAllGoals, updateGoal, deleteGoal } from "../adapters/goal-adapter";
 
 export default function Goals() {
+    const { currentUser } = useContext(CurrentUserContext);
     //useState to CRUD goals
     const [goals, setGoals] = useState([]);
     const [newGoal, setNewGoal] = useState("");
@@ -15,13 +16,13 @@ export default function Goals() {
     // fetch existing goals
     useEffect(() => {
         const fetchGoals = async () => {
-            const fetchedGoals = await getAllGoals();
+            const fetchedGoals = await getAllGoals(currentUser?.id);
             setGoals(fetchedGoals);
             console.log(fetchedGoals);
             setLoading(false);
         };
-        fetchGoals();
-    }, []);
+        if (currentUser) fetchGoals();
+    }, [currentUser]);
 
     // function to handle goal
     const handleNewGoalChange = (e) => setNewGoal(e.target.value);

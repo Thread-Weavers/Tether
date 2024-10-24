@@ -12,14 +12,14 @@ exports.createRitual = async (req, res) => {
   }
 
 exports.listRituals = async (req, res) => {
-    const userId = req.session.userId;
+    const { userId } = req.params;
     if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
     const userRituals = await Ritual.list(userId);
     res.send(userRituals);
 }
 
 exports.listPublicRituals = async (req, res) => {
-    const userId = req.session.userId;
+    const { userId } = req.params;
     // if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
     const userRituals = await Ritual.listPublics(userId);
     res.send(userRituals);
