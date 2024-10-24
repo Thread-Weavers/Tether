@@ -7,6 +7,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [errorText, setErrorText] = useState('');
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  console.log(currentUser);
 
   // users shouldn't be able to see the login page if they are already logged in.
   // if the currentUser exists in the context, navigate the user to 
