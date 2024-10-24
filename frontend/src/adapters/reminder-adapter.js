@@ -12,13 +12,13 @@ export const createReminder = async (content, isPublic = false) => {
 // For this one adapter, if an error occurs, we handle it here by printing
 // the error and return an empty array
 export const getAllReminders = async (id) => {
-  const [reminder, error] = await fetchHandler(baseUrl);
+  const [reminder, error] = await fetchHandler(baseUrl + id);
   if (error) console.log(error); // print the error for simplicity.
   return reminder || [];
 };
 
 export const getAllPublicReminders = async (id) => {
-  const [reminders, error] = await fetchHandler(baseUrl + "public/");
+  const [reminders, error] = await fetchHandler(baseUrl + `public/${id}`);
   if (error) console.log(error); // print the error for simplicity.
   return reminders || [];
 };

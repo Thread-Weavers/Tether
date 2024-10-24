@@ -1,22 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import CurrentUserContext from "../contexts/current-user-context";
 import { getAllPublicGoals } from "../adapters/goal-adapter";
 
-export default function PartnerGoalsList({ partner }) {
+export default function PartnerGoalsList() {
+    const { currentUser } = useContext(CurrentUserContext);
     const [goals, setGoals] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    console.log(partner.id);
     useEffect(() => {
         const fetchGoals = async () => {
-            if (partner) {
-                const fetchedGoals = await getAllPublicGoals(partner.id);
-                console.log('PARTNER GOALS FETCHED: ', fetchedGoals);
-                setGoals(fetchedGoals);
-                setLoading(false);
-            }
+            const fetchedGoals = await getAllPublicGoals(currentUser?.partner_id);
+            console.log('PARTNER GOALS FETCHED: ', fetchedGoals);
+            setGoals(fetchedGoals);
+            setLoading(false);
         };
-        fetchGoals();
-    }, [partner]);
+        if (currentUser) fetchGoals();
+    }, [currentUser]);
 
     if (loading) {
         return <p>Loading Partner Goals...</p>;
@@ -24,7 +23,7 @@ export default function PartnerGoalsList({ partner }) {
 
     return (
         <>
-            <h3>{partner.username}'s Goals</h3>
+            <h3>Goals</h3>
             <ul>
                 {goals.map((goal, index) => (
                     <li key={index} className={goal.completed ? "completed" : ""}>

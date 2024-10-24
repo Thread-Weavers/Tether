@@ -16,8 +16,7 @@ export default function SiteHeadingAndNav() {
         </ul>
       </nav>
     </header> :
-
     <header>
-    <a id='logo' href='/'>Tether</a>
+      <a id='logo' href='/'>Tether</a>
     </header>;
 }

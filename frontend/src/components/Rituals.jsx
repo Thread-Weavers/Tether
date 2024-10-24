@@ -3,7 +3,7 @@ import CurrentUserContext from "../contexts/current-user-context";
 import { createRitual, getAllRituals, updateRitual, deleteRitual } from "../adapters/ritual-adapter";
 
 export default function Goals() {
-    
+    const { currentUser } = useContext(CurrentUserContext);
     //useState to update rituals
     const [rituals, setRituals] = useState([]);
     const [newRitual, setNewRitual] = useState("");
@@ -16,12 +16,12 @@ export default function Goals() {
     // fetch existing rituals
     useEffect(() => {
         const fetchRituals = async () => {
-            const fetchedRituals = await getAllRituals();
+            const fetchedRituals = await getAllRituals(currentUser?.id);
             setRituals(fetchedRituals);
             setLoading(false);
         };
-        fetchRituals();
-    }, []);
+        if (currentUser) fetchRituals();
+    }, [currentUser]);
 
     // function to handle ritual input
     const handleNewRitualChange = (e) => setNewRitual(e.target.value);
