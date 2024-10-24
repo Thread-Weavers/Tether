@@ -24,3 +24,6 @@ export const updateUser = async ( id, target, value ) => {
   return fetchHandler(`${baseUrl}/${id}`, getPatchOptions({ target, value }))
 }
 
+export const findTether = async (id) => {
+  return fetchHandler(`${baseUrl}/${id}/tethering`, getPatchOptions());
+}

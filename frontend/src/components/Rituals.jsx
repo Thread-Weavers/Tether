@@ -11,13 +11,13 @@ export default function Goals() {
     const [editRitualIndex, setEditRitualIndex] = useState(null);
     const [editRitualValue, setEditRitualValue] = useState("");
     const [loading, setLoading] = useState(true);
+    const [isPublic, setIsPublic] = useState(false);
     
     // fetch existing rituals
     useEffect(() => {
         const fetchRituals = async () => {
             const fetchedRituals = await getAllRituals();
             setRituals(fetchedRituals);
-            console.log(fetchedRituals);
             setLoading(false);
         };
         fetchRituals();
@@ -29,7 +29,7 @@ export default function Goals() {
     // fetch POST ritual
     const sendRituals = async() => {
         try {
-            const response = await createRitual(newRitual);
+            const response = await createRitual(newRitual, isPublic);
             console.log(response[0]);
             setRituals([...rituals, response[0]]);
         } catch (error) {
@@ -67,6 +67,7 @@ export default function Goals() {
     const saveEditedRitual = async () => {
         const updatedRituals = [...rituals];
         updatedRituals[editRitualIndex].content = editRitualValue;
+        updatedRituals[editRitualIndex].isPublic = isPublic;
 
         try {
             await updateRitual({ id: rituals[editRitualIndex].id, target: "content", value: editRitualValue }); 
@@ -103,6 +104,10 @@ export default function Goals() {
     <div className="modal">
         <h4>Add a New Ritual</h4>
         <input type="text" value={newRitual} onChange={handleNewRitualChange} placeholder="Type your ritual here!" />
+        <span>{isPublic ? "This ritual is public" : "This ritual is private"}</span>
+        <button onClick={() => setIsPublic(!isPublic)}>
+            {isPublic ? "Make Private" : "Make Public"}
+        </button>
         <button onClick={addRitual}>Save</button>
         <button onClick={() => setIsAddingRitual(false)}>Cancel</button>
     </div>

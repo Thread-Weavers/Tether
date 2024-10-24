@@ -8,7 +8,8 @@ export default function RemindersList() {
     useEffect(() => {
         const fetchReminders = async () => {
             const fetchedReminders = await getAllReminders();
-            setReminders(fetchedReminders);
+            const publicReminders = fetchedReminders.filter(reminder => reminder.is_public);
+            setReminders(publicReminders);
             setLoading(false);
         };
         fetchReminders();
@@ -31,9 +32,6 @@ export default function RemindersList() {
                 {reminders.map((reminder, index) => (
                     <li key={index} className={reminder.completed ? "completed" : ""}>
                         <span>{reminder.content}</span>
-                        <button onClick={() => toggleComplete(index)}>
-                            {reminder.completed ? "Incomplete" : "Complete"}
-                        </button>
                     </li>
                 ))}
             </ul>

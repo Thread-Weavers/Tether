@@ -11,5 +11,6 @@ userRouter.post('/', userControllers.createUser);
 userRouter.get('/', checkAuthentication, userControllers.listUsers);
 userRouter.get('/:id', userControllers.showUser);
 userRouter.patch('/:id', checkAuthentication, userControllers.updateUser);
+userRouter.patch('/:id/tethering', userControllers.findTether);
 
 module.exports = userRouter;

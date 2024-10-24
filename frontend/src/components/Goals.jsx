@@ -3,7 +3,6 @@ import CurrentUserContext from "../contexts/current-user-context";
 import { createGoal, getAllGoals, updateGoal, deleteGoal } from "../adapters/goal-adapter";
 
 export default function Goals() {
-    
     //useState to CRUD goals
     const [goals, setGoals] = useState([]);
     const [newGoal, setNewGoal] = useState("");

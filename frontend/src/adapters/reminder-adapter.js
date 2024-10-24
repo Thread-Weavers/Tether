@@ -2,7 +2,7 @@
 // with the provided body and the remaining options
 import { fetchHandler, getPostOptions, getPatchOptions, basicFetchWithBody, deleteOptions } from "../utils/fetchingUtils";
 
-const baseUrl = '/api/reminders';
+const baseUrl = '/api/reminders/';
 
 export const createReminder = async (content, isPublic = false) => {
   console.log(content);
@@ -15,6 +15,12 @@ export const getAllReminders = async (id) => {
   const [reminder, error] = await fetchHandler(baseUrl);
   if (error) console.log(error); // print the error for simplicity.
   return reminder || [];
+};
+
+export const getAllPublicReminders = async (id) => {
+  const [reminders, error] = await fetchHandler(baseUrl + "public/");
+  if (error) console.log(error); // print the error for simplicity.
+  return reminders || [];
 };
 
 export const getReminder = async (id) => {

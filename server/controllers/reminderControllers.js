@@ -18,6 +18,14 @@ exports.listReminders = async (req, res) => {
     res.send(userReminders);
 }
 
+exports.listPublicReminders = async (req, res) => {
+    const userId = req.session.userId;
+    // if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
+    const userReminders = await Reminder.listPublics(userId);
+    res.send(userReminders);
+}
+
+
 exports.updateReminder = async (req, res) => {
     const { target, value } = req.body;
     const { id } = req.params;

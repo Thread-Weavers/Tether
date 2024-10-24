@@ -11,13 +11,14 @@ Many individuals experience mental health issues that leave them feeling isolate
 ___
 
 ### 📝 Features & User Stories
-* Describes all the features and their purpose.
-* For each feature, outline the user flow.
-* Identify features required for a MVP
-
+**Welcome Screen (MVP)**: Users see the Tether logo and can click to proceed to the login page.
+**Login/Create Account (MVP)**: Users can create a new account or log in, entering necessary details and accepting terms of service.
+**Questionnaire (MVP)**: Users complete a multiple-choice questionnaire to tailor their experience.
+**Profile Page (MVP)**: Displays user details, goals, reminders, and a navigation bar for easy access to other features.
+**Personal Tether Page (MVP)**: Users can view and manage their account information, reminders, routines, and appointments with accountability notifications.
+**Chat Feature (MVP)**: Includes themed group chats and an option to chat with an accountability partner, encouraging interaction and support.
 
 Example: 
-
 * **User Profile Page (MVP)**: Users can sign into the application to see their home page. The home page will display all of their blog posts and settings for updating their profile.
 * **Other User Profile Page (MVP)**: Users can see a directory of all users in the application. Clicking on their name will take the user to view the profile of that user.
 * **Live Chat (MVP)**: Users can start a chat with another user. This chat will have live updates and all messages will be saved.
@@ -27,34 +28,28 @@ ___
 
 
 ### 📚 Tech Stack: 
-Clearly state the technologies, frameworks, and tools you intend to use for the front-end and back-end development.
-
-*Example:* We intend on using React for the front end, Node.js and Express for the backend, and PostgreSQL for the database. We will also incorporate Socket.io to implement the live chat feature and ChatGPT to implement the chatbot feature.
+We will utilize React for the front end, Node.js and Express for the backend, and PostgreSQL for the database. For real-time chat features, Socket.io will be integrated.
 
 ___
 
 ### 🗓️ Milestones and Timeline: 
-Break down the project into smaller milestones and outline a timeline for achieving them. Which features will you prioritize and by when will you complete them? Remember, you will have 5 weeks to complete this project. The first week will be spent planning and the remaining 4 will be spent building.
+Week 1: Planning and designing the app structure.
+Week 2: Complete the user authentication and profile setup.
+Week 3: Implement the questionnaire and personal tether features.
+Week 4: Develop the chat functionality and conduct testing.
+Week 5: Finalize styling, conduct user testing, and prepare for launch.
 
-*Example:* 
-* By June 5: the MVP will be complete. Users will be able to post blogs and see them appear on their profile
-* By June 15: the chat feature will be complete. Users will be able to chat with other users.
-* By June 25: the chatbot powered by ChatGPT will be complete.
-* By June 31: the final CSS styling will be applied.
 ___
 
 ### 💽 Data Sources (if applicable): 
-If your project involves using specific data sources or APIs, mention them and explain how you plan to integrate them into your project.
+The application will utilize Socket.io for real-time communication in chat features, allowing users to interact seamlessly. Additionally, we will integrate mental health resources and articles through relevant APIs to provide users with tailored information based on their selected issues.
 
-*Example:* This application will utilize the WeatherAPI API to retrieve live weather data based on the user's current location. We will use the WebLocation API to get the user's current location.
 ___
 
 ### 🤝 Team and Responsibilities (if applicable): 
-If you are working in a team, specify the roles and responsibilities of each team member and how you will collaborate throughout the project.
-
-*Example:* The team working on this project will consist of Ben Spector and Reuben Ogbonna. We will collaborate using Github Project boards to manage our tasks, Slack for communication, and Github to manage changes to the codebase. Reuben will primarily focus on building the blog feature while Ben will focus on building the live chat feature.
+The team working on this project will consist of Ryan Ramirez, Taifinkaba Chowdhury, Engels Garcia. We will collaborate using Github Project boards to manage our tasks, Slack for communication, and Github to manage changes to the codebase. Ryan will primarily focus on the questionnaire, partner matching for frontend. Taifinkaba will focus on the profile and your tether page so users can create, read, update and delete their goals, reminders, and rituals. Engels will focus on backend to make sure the tables, adaptors, and API's work while also focusing on Socket.io to make the live chat feature.
 
 ___
 
 ### 📓 References and Citations: 
-If you have taken inspiration from existing projects or research, provide proper references and citations to give credit to the original sources.
+Socket.io. "Socket.IO: Realtime Application Framework." Socket.io. Accessed 22 Oct. 2024.

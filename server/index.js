@@ -16,6 +16,7 @@ const userRouter = require('./middleware/routes/userRouter');
 const goalRouter = require('./middleware/routes/goalRouter');
 const reminderRouter = require('./middleware/routes/reminderRouter');
 const ritualRouter = require('./middleware/routes/ritualRouter');
+const questRouter = require('./middleware/routes/questRouter');
 
 const app = express();
 const server = http.createServer(app);
