@@ -13,17 +13,13 @@ exports.loginUser = async (req, res) => {
   const isPasswordValid = await user.isValidPassword(password);
   if (!isPasswordValid) return res.sendStatus(401);
 
-  const updatedUser = await User.setOnline(user.id, true);
-  if (!updatedUser) return res.sendStatus(409);
-
   req.session.userId = user.id;
-  res.send(updatedUser);
+  res.send(user);
 };
 
 // This controller sets `req.session` to null, destroying the cookie 
 // which is the thing that keeps them logged in.
 exports.logoutUser = async (req, res) => {
-  User.setOnline(req.session.userId, false);
   req.session = null;
   res.sendStatus(204);
 };

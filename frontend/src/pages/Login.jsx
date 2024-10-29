@@ -2,12 +2,12 @@ import { useContext, useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { logUserIn } from "../adapters/auth-adapter";
 import CurrentUserContext from "../contexts/current-user-context";
+import SiteHeadingAndNav from '../components/SiteHeadingAndNav';
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [errorText, setErrorText] = useState('');
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-  console.log(currentUser);
 
   // users shouldn't be able to see the login page if they are already logged in.
   // if the currentUser exists in the context, navigate the user to 
@@ -25,6 +25,7 @@ export default function LoginPage() {
   };
 
   return <>
+  <SiteHeadingAndNav/>
     <h1>Login</h1>
     <form onSubmit={handleSubmit} aria-labelledby="login-heading">
       <h2 id='login-heading'>Log back in!</h2>

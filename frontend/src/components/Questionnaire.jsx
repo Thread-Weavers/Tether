@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import CurrentUserContext from "../contexts/current-user-context";
+import { submitQuest } from "../adapters/user-adapter";
 
 const Questionnaire = () => {
+  const navigate = useNavigate();
+  const { currentUser } = useContext(CurrentUserContext);
   // Static questions and answer options
   const questions = [
   {
@@ -95,7 +100,6 @@ const Questionnaire = () => {
   }
 ];
 
-
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
 
@@ -119,23 +123,11 @@ const Questionnaire = () => {
 
   // Form submission
   const handleSubmit = async () => {
-    try {
-      const response = await fetch('/api/questionnaire', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(answers),
-      });
-
-      if (response.ok) {
-        alert('Your answers have been submitted!');
-      } else {
-        alert('Submission failed.');
-      }
-    } catch (error) {
-      console.error('Error submitting answers:', error);
-    }
+    const response = submitQuest(answers);
+    if (response) {
+      alert('Your answers have been submitted!');
+      navigate(`/users/${currentUser.id}`);
+    } else alert('Submission failed.');
   };
 
   return (

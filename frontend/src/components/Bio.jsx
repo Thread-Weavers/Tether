@@ -4,6 +4,7 @@ import { updateUser } from "../adapters/user-adapter";
 
 export default function Bio() {
     const { currentUser } = useContext(CurrentUserContext); // Current User
+    console.log(currentUser);
     // Bio States
     const [bio, setBio] = useState("Loading bio..."); // Initial bio
     const [bioValue, setBioValue]  = useState(""); // New bio

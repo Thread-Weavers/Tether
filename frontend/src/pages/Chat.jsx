@@ -1,14 +1,17 @@
 import '../styles/chat.css';
+import SiteHeadingAndNav from '../components/SiteHeadingAndNav';
 import { useState, useRef, useContext } from 'react';
 import CurrentUserContext from '../contexts/current-user-context';
-import io from 'socket.io-client';
-const socket = io.connect("http://localhost:3000/");
+import WebSocketContext from '../contexts/web-socket-context';
 
 export default function Chat() {
     const { currentUser } = useContext(CurrentUserContext);
+    const { webSocket } = useContext(WebSocketContext);
+    const socket = webSocket;
     const [message, setMessage] = useState("");
     const messages = useRef(null);
     const [tags, setTags] = useState([]);
+
 
     const sendMessage = (e) => {
         e.preventDefault();
@@ -24,6 +27,7 @@ export default function Chat() {
     });
 
     return <>
+    <SiteHeadingAndNav />
     <ul id="messages" ref={messages}>
         {tags.map((tag, index) => (
             <li key={index} data-sender={tag.sender === socket.id ? "me" : "other"}>

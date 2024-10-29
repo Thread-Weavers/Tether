@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import CurrentUserContext from "../contexts/current-user-context";
 import { getUser } from "../adapters/user-adapter";
 import { logUserOut } from "../adapters/auth-adapter";
+import SiteHeadingAndNav from '../components/SiteHeadingAndNav';
 import UpdateUsernameForm from "../components/UpdateUsernameForm";
 
 export default function UserPage() {
@@ -38,6 +39,7 @@ export default function UserPage() {
   const profileUsername = isCurrentUserProfile ? currentUser.username : userProfile.username;
 
   return <>
+  <SiteHeadingAndNav />
     <h1>{profileUsername}</h1>
     {!!isCurrentUserProfile && <button onClick={handleLogout}>Log Out</button>}
     <p>If the user had any data, here it would be</p>
