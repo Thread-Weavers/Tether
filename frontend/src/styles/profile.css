@@ -1,0 +1,12 @@
+/* completed goal a line will appear */
+.completed {
+    text-decoration: line-through;
+    color: green;
+}
+  
+form {
+    padding: 1rem;
+    border: 1px solid #CCC;
+    width: 15rem;
+    margin: 1rem auto;
+}

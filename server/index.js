@@ -54,11 +54,9 @@ io.on("connection", (socket) => {
   socket.on('user', (userId) => {
     user_id = userId;
     User.setOnline(userId, true);
-    console.log(userId + "connected");
   })
   socket.on('disconnect', () => {
     User.setOnline(user_id, false);
-    console.log(user_id + "disconnected");
   });
 
   socket.on('chat message', (msg, sender) => {

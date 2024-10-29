@@ -5,6 +5,10 @@ import { getUser } from "../adapters/user-adapter";
 import { logUserOut } from "../adapters/auth-adapter";
 import SiteHeadingAndNav from '../components/SiteHeadingAndNav';
 import UpdateUsernameForm from "../components/UpdateUsernameForm";
+import Bio from "../components/Bio";
+import Goals from "../components/Goals";
+import Reminders from "../components/Reminders";
+import Rituals from "../components/Rituals";
 
 export default function UserPage() {
   const navigate = useNavigate();
@@ -48,5 +52,9 @@ export default function UserPage() {
       !!isCurrentUserProfile
       && <UpdateUsernameForm currentUser={currentUser} setCurrentUser={setCurrentUser} />
     }
+    <Bio  />
+    <Goals />
+    <Reminders />
+    <Rituals />
   </>;
 }
