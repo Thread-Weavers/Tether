@@ -7,7 +7,7 @@ export default function SiteHeadingAndNav() {
 
   return currentUser ? 
     <header>
-      <h1><NavLink to={`/users/${currentUser.id}/your-tether`}>Tether</NavLink></h1>
+      <h1><NavLink to={`/users/${currentUser.id}`}>Tether</NavLink></h1>
       <nav>
         <ul>
           <li><NavLink to='/chat'>Chat</NavLink></li>

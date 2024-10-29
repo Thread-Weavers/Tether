@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import CurrentUserContext from "../contexts/current-user-context";
+import SiteHeadingAndNav from '../components/SiteHeadingAndNav';
 import Bio from "../components/Bio";
 import GoalsList from "../components/GoalsList";
 import RemindersList from "../components/RemindersList";
@@ -14,6 +15,7 @@ export default function YourTetherPage() {
     const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
     return <>
+    <SiteHeadingAndNav />
     <Bio />
     <GoalsList  />
     <RemindersList />

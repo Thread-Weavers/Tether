@@ -5,6 +5,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable('questionnaire_data', (table) => {
         table.increments();
+        table.integer('user_id').notNullable();
         table.string('first_answer');
         table.string('second_answer');
         table.string('third_answer');
