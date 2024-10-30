@@ -1,61 +1,54 @@
+/* Basic reset for the container */
+.homeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #874ba1, #283e51); /* Dark gradient background */
+  color: #ffffff;
+}
+
 .homeDiv {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100vh;
   text-align: center;
+  padding: 2rem;
+  max-width: 400px;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
 }
 
-.line {
-  position: absolute;
-  height: 2px;
-  background-color: white;
-  top: 50%;
+.homeTitle {
+  font-family: 'MaryGoods', sans-serif;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
 }
 
-.line.left {
-  left: 0;
-  width: 0;
-  animation: moveLeft 2s forwards ease-out;
+.homeSubtitle {
+  font-size: 1.25rem;
+  color: #e0e0e0;
+  margin-bottom: 1.5rem;
 }
 
-.line.right {
-  right: 0;
-  width: 0;
-  animation: moveRight 2s forwards ease-out;
-}
-
-.text {
-  position: absolute;
-  color: white;
-  font-size: 24px;
-  opacity: 0;
-  animation: fadeIn 1s ease-out forwards;
-  animation-delay: 2s;
-}
-
-@keyframes moveLeft {
-  to {
-    width: 50vw;
-  }
-}
-
-@keyframes moveRight {
-  to {
-    width: 50vw;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-nav a {
+.accountButtons {
+  list-style: none;
+  padding: 0;
   display: flex;
+  gap: 1rem;
   justify-content: center;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  background-color: #ffffff;
+  color: #874ba1;
+  border-radius: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #874ba1;
+  color: #ffffff;
 }

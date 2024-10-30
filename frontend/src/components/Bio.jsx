@@ -25,15 +25,24 @@ export default function Bio() {
     };
 
     return <>
-        <h2>{currentUser?.username}</h2>
-        <p>{bio}</p>
-        <button onClick={() => setIsEditingBio(true)}>Edit</button>
-        {isEditingBio ?
-        <div className="edit_modal" >
-            <textarea value={bioValue} onChange={(e) => setBioValue(e.target.value)} placeholder="Type your new bio here!!!"/>
-            <button onClick={updateBio}>Save</button>
-            <button onClick={() => {setBioValue(bio); setIsEditingBio(false)}}>Cancel</button>
+  <div className="bioContainer">
+    <h2>{currentUser?.username}</h2>
+    <p className="bioText">{bio}</p>
+    <button className="editButton" onClick={() => setIsEditingBio(true)}>Edit</button>
+    {isEditingBio && (
+      <div className="editModal">
+        <textarea 
+          className="bioTextarea" 
+          value={bioValue} 
+          onChange={(e) => setBioValue(e.target.value)} 
+          placeholder="Type your new bio here!!!"
+        />
+        <div className="modalButtons">
+          <button className="saveButton" onClick={updateBio}>Save</button>
+          <button className="cancelButton" onClick={() => {setBioValue(bio); setIsEditingBio(false)}}>Cancel</button>
         </div>
-        : <></>}
-    </>
+      </div>
+    )}
+  </div>
+</>
 }

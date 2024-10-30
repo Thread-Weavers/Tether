@@ -1,0 +1,77 @@
+.signupContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #874ba1, #283e51);
+    color: #ffffff;
+  }
+  
+  .signupForm {
+    max-width: 400px;
+    width: 100%;
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .signupTitle {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .signupSubtitle {
+    font-size: 1.25rem;
+    color: #e0e0e0;
+    margin-bottom: 1.5rem;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0 1rem;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .signupButton {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #ffffff;
+    color: #874ba1;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .signupButton:hover {
+    background-color: #874ba1;
+    color: #ffffff;
+  }
+  
+  .errorText {
+    color: #ff6b6b;
+    margin-top: 1rem;
+  }
+  
+  .alreadyMemberText {
+    margin-top: 1rem;
+  }
+  
+  .link {
+    color: #e0e0e0;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+  
+  .link:hover {
+    color: #874ba1;
+  }
+  

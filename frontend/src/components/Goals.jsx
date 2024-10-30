@@ -99,43 +99,55 @@ export default function Goals() {
     }
 
     return <>
-    <h3>Goals</h3>
-    <button onClick={() => setIsAddingGoal(true)}>Add Goal</button>
-    {isAddingGoal && (
-    <div className="modal">
-        <h4>Add a New Goal</h4>
-        <input type="text" value={newGoal} onChange={handleNewGoalChange} placeholder="Type your goal here!" />
-        <span>{isPublic ? "This goal is public" : "This goal is private"}</span>
-        <button onClick={() => setIsPublic(!isPublic)}>
-            {isPublic ? "Make Private" : "Make Public"}
-        </button>
-        <button onClick={addGoal}>Save</button>
-        <button onClick={() => setIsAddingGoal(false)}>Cancel</button>
-    </div>
-    )}
-
-    <ul>
-        {goals.map((goal, index) => (
-        <li key={index} className={goal.completed ? "completed" : ""}>
-            {editGoalIndex === index ? (
-            <>
-            <input type="text" value={editGoalValue} onChange={(e) => setEditGoalValue(e.target.value)} />
-            <button onClick={saveEditedGoal}>Save</button>
-            <button onClick={cancelEditGoal}>Cancel</button>
-            <button onClick={() => removeGoal(index)}>Remove</button>
-            </>
-            ) : (
-            <>
-            <span className={goal.completed ? "completed" : ""}>{goal.content}</span>
-            <button onClick={() => startEditingGoal(index)}>Edit</button>
-            <button onClick={() => toggleComplete(index)}>
-                {goal.completed ? "Incomplete" : "Complete"}
+    <div className="ritualsContainer">
+        <h3 className="ritualsHeading">Goals</h3>
+        <button className="addRitualButton" onClick={() => setIsAddingGoal(true)}>Add Goal</button>
+        {isAddingGoal && (
+        <div className="modal">
+            <h4 className="modalTitle" >Add a New Goal</h4>
+            <input 
+                type="text" 
+                className="ritualInput" 
+                value={newGoal} 
+                onChange={handleNewGoalChange} 
+                placeholder="Type your goal here!" 
+            />
+            <span className="ritualPrivacyText">{isPublic ? "This goal is public" : "This goal is private"}</span>
+            <button className="togglePrivacyButton"  onClick={() => setIsPublic(!isPublic)}>
+                {isPublic ? "Make Private" : "Make Public"}
             </button>
-            <button onClick={() => removeGoal(index)}>Remove</button>        
-            </>
-            )}
-        </li>
-        ))}
-    </ul>
+            <button className="saveRitualButton" onClick={addGoal}>Save</button>
+            <button className="cancelButton"  onClick={() => setIsAddingGoal(false)}>Cancel</button>
+        </div>
+        )}
+
+        <ul className="ritualsList">
+            {goals.map((goal, index) => (
+            <li key={index} className={`ritualItem ${goal.completed ? "completed" : ""}`}>
+                {editGoalIndex === index ? (
+                <>
+                <input
+                    type="text" 
+                    className="ritualInput" 
+                    value={editGoalValue} 
+                    onChange={(e) => setEditGoalValue(e.target.value)} />
+                <button className="saveEditButton" onClick={saveEditedGoal}>Save</button>
+                <button className="cancelEditButton" onClick={cancelEditGoal}>Cancel</button>
+                <button className="removeButton" onClick={() => removeGoal(index)}>Remove</button>
+                </>
+                ) : (
+                <>
+                <span className={`ritualContent ${goal.completed ? "completed" : ""}`}>{goal.content}</span>
+                <button className="editButton" onClick={() => startEditingGoal(index)}>Edit</button>
+                <button className="toggleCompleteButton" onClick={() => toggleComplete(index)}>
+                    {goal.completed ? "Incomplete" : "Complete"}
+                </button>
+                <button className="removeButton" onClick={() => removeGoal(index)}>Remove</button>        
+                </>
+                )}
+            </li>
+            ))}
+        </ul>
+    </div>
     </>
 }

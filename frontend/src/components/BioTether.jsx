@@ -16,7 +16,7 @@ export default function BioTether() {
     }, [currentUser]);
 
     return <>
-    <div className="bio-tether">
+    <div className="bioContainer">
         <h2>{partner?.username}</h2>
         <p>{partner?.bio}</p>
         <p>Status: {partner?.is_online ? "Online" : "Offline"}</p>
