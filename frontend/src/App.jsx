@@ -22,7 +22,7 @@ export default function App() {
     const setup = async () => {
       const user = await checkForLoggedInUser();
       setCurrentUser(user);
-      const socket = io.connect("http://localhost:3000/");
+      const socket = io.connect("http://localhost:5432/");
       socket.emit('user', user.id);
       setWebSocket(socket);
     }
