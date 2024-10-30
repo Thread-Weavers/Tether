@@ -1,0 +1,54 @@
+/* Basic reset for the container */
+.homeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #874ba1, #283e51); /* Dark gradient background */
+  color: #ffffff;
+}
+
+.homeDiv {
+  text-align: center;
+  padding: 2rem;
+  max-width: 400px;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+}
+
+.homeTitle {
+  font-family: 'MaryGoods', sans-serif;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.homeSubtitle {
+  font-size: 1.25rem;
+  color: #e0e0e0;
+  margin-bottom: 1.5rem;
+}
+
+.accountButtons {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  background-color: #ffffff;
+  color: #874ba1;
+  border-radius: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #874ba1;
+  color: #ffffff;
+}

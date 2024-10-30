@@ -3,6 +3,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 import { logUserIn } from "../adapters/auth-adapter";
 import CurrentUserContext from "../contexts/current-user-context";
 import SiteHeadingAndNav from '../components/SiteHeadingAndNav';
+import "../styles/login.css";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -24,19 +25,24 @@ export default function LoginPage() {
     navigate(`/users/${user.id}`);
   };
 
-  return <>
-  <SiteHeadingAndNav/>
-    <h1>Login</h1>
-    <form onSubmit={handleSubmit} aria-labelledby="login-heading">
-      <h2 id='login-heading'>Log back in!</h2>
-      <label htmlFor="username">Username</label>
-      <input type="text" autoComplete="username" id="username" name="username" />
+  return (
+  <>
+    <div className="loginContainer">
+      <form className="loginForm" onSubmit={handleSubmit} aria-labelledby="login-heading">
+        <h1 className="loginTitle">TETHER</h1>
+        <h2 id="login-heading" className="loginSubtitle">Log in</h2>
 
-      <label htmlFor="password">Password</label>
-      <input type="password" autoComplete="current-password" id="password" name="password" />
+        <label htmlFor="username">Username</label>
+        <input type="text" autoComplete="username" id="username" name="username" />
 
-      <button>Log in!</button>
-    </form>
-    {!!errorText && <p>{errorText}</p>}
-  </>;
+        <label htmlFor="password">Password</label>
+        <input type="password" autoComplete="current-password" id="password" name="password" />
+
+        <button className="loginButton">Log in!</button>
+
+        {!!errorText && <p className="errorText">{errorText}</p>}
+      </form>
+    </div>
+  </>
+  );
 }

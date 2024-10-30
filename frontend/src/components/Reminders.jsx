@@ -98,43 +98,57 @@ export default function Reminders() {
     }
 
     return <>
-    <h3>Reminders</h3>
-    <button onClick={() => setIsAddingReminder(true)}>Add Reminder</button>
-    {isAddingReminder && (
-    <div className="modal">
-        <h4>Add a New Reminder</h4>
-        <input type="text" value={newReminder} onChange={handleNewReminderChange} placeholder="Type your reminder here!" />
-        <span>{isPublic ? "This reminder is public" : "This reminder is private"}</span>
-        <button onClick={() => setIsPublic(!isPublic)}>
+    <div className="ritualsContainer">
+      <h3 className="ritualsHeading">Reminders</h3>
+      <button className="addRitualButton" onClick={() => setIsAddingReminder(true)}>Add Reminder</button>
+      {isAddingReminder && (
+        <div className="modal">
+          <h4 className="modalTitle">Add a New Reminder</h4>
+          <input 
+            type="text" 
+            className="ritualInput" 
+            value={newReminder} 
+            onChange={handleNewReminderChange} 
+            placeholder="Type your reminder here!" 
+          />
+          <span className="ritualPrivacyText">{isPublic ? "This reminder is public" : "This reminder is private"}</span>
+          <button className="togglePrivacyButton" onClick={() => setIsPublic(!isPublic)}>
             {isPublic ? "Make Private" : "Make Public"}
-        </button>
-        <button onClick={addReminder}>Save</button>
-        <button onClick={() => setIsAddingReminder(false)}>Cancel</button>
-    </div>
-    )}
-    
-    <ul>
+          </button>
+          <button className="saveRitualButton" onClick={addReminder}>Save</button>
+          <button className="cancelButton" onClick={() => setIsAddingReminder(false)}>Cancel</button>
+        </div>
+      )}
+  
+      <ul className="ritualsList">
         {reminders.map((reminder, index) => (
-        <li key={index} className={reminder.completed ? "completed" : ""}>
+          <li key={index} className={`ritualItem ${reminder.completed ? "completed" : ""}`}>
             {editReminderIndex === index ? (
-            <>
-            <input type="text" value={editReminderValue} onChange={(e) => setEditReminderValue(e.target.value)} />
-            <button onClick={saveEditedReminder}>Save</button>
-            <button onClick={cancelEditReminder}>Cancel</button>
-            <button onClick={() => removeReminder(index)}>Remove</button>
-            </>
+              <>
+                <input 
+                  type="text" 
+                  className="ritualInput" 
+                  value={editReminderValue} 
+                  onChange={(e) => setEditReminderValue(e.target.value)} 
+                />
+                <button className="saveEditButton" onClick={saveEditedReminder}>Save</button>
+                <button className="cancelEditButton" onClick={cancelEditReminder}>Cancel</button>
+                <button className="removeButton" onClick={() => removeReminder(index)}>Remove</button>
+              </>
             ) : (
-            <>
-            <span className={reminder.completed ? "completed" : ""}>{reminder.content}</span>
-            <button onClick={() => startEditingReminder(index)}>Edit</button>
-            <button onClick={() => toggleComplete(index)}>
-                {reminder.completed ? "Incomplete" : "Complete"}
-            </button>
-            <button onClick={() => removeReminder(index)}>Remove</button>
-            </>
+              <>
+                <span className={`ritualContent ${reminder.completed ? "completed" : ""}`}>{reminder.content}</span>
+                <button className="editButton" onClick={() => startEditingReminder(index)}>Edit</button>
+                <button className="toggleCompleteButton" onClick={() => toggleComplete(index)}>
+                  {reminder.completed ? "Incomplete" : "Complete"}
+                </button>
+                <button className="removeButton" onClick={() => removeReminder(index)}>Remove</button>
+              </>
             )}
-        </li>
+          </li>
         ))}
-    </ul>
-    </>
+      </ul>
+    </div>
+  </>
+  
 }

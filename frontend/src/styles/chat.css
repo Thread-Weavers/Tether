@@ -1,54 +1,48 @@
-body {
-    margin: 0;
-    padding-bottom: 3rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
-
-#form {
-    background: rgba(0, 0, 0, 0.15);
-    padding: 0.25rem;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+.chatroom {
     display: flex;
-    height: 3rem;
-    box-sizing: border-box;
-    backdrop-filter: blur(10px);
+    flex-direction: column;
+    max-width: 600px; /* Width of the chatroom */
+    margin: 50px auto; /* Centering the chatroom with margin */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background-color: #874ba1; /* White background for chatroom */
 }
 
-#input {
-    border: none;
-    padding: 0 1rem;
-    flex-grow: 1;
-    border-radius: 2rem;
-    margin: 0.25rem;
-}
-
-#input:focus {
-    outline: none;
-}
-
-#form > button {
-    background: #333;
-    border: none;
-    padding: 0 1rem;
-    margin: 0.25rem;
-    border-radius: 3px;
-    outline: none;
-    color: #fff;
-}
-
-#messages {
-    list-style-type: none;
+.messages {
+    list-style: none;
+    padding: 10px;
     margin: 0;
-    padding: 0;
+    height: 400px; /* Fixed height for scrolling */
+    overflow-y: auto; /* Enables scrolling */
+    border-bottom: 1px solid #ccc; /* Separator between messages and input */
 }
 
-#messages > li {
-    padding: 0.5rem 1rem;
+.message {
+    margin: 10px 0;
+    padding: 10px 15px;
+    border-radius: 12px;
+    position: relative; /* Needed for the arrow positioning */
+    max-width: 80%; /* Limits the width of the messages */
 }
 
-#messages > li:nth-child(odd) {
-    background: #efefef;
+.message.me {
+    background-color: #32a772; /* Light green for user's messages */
+    margin-left: auto; /* Align to right */
+    border: 1px solid #c3e6cb; /* Border for user message */
+}
+
+.message.other {
+    background-color: #8b212a; /* Light red for others' messages */
+    margin-right: auto; /* Align to left */
+    border: 1px solid #f5c6cb; /* Border for other messages */
+}
+
+.sender {
+    font-weight: bold; /* Make sender name bold */
+}
+
+.chat-form {
+    display: flex;
+    justify-content: center; 
 }

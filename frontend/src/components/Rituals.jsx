@@ -98,43 +98,57 @@ export default function Goals() {
     }
 
     return <>
-    <h3>Rituals</h3>
-    <button onClick={() => setIsAddingRitual(true)}>Add Ritual</button>
-    {isAddingRitual && (
-    <div className="modal">
-        <h4>Add a New Ritual</h4>
-        <input type="text" value={newRitual} onChange={handleNewRitualChange} placeholder="Type your ritual here!" />
-        <span>{isPublic ? "This ritual is public" : "This ritual is private"}</span>
-        <button onClick={() => setIsPublic(!isPublic)}>
+    <div className="ritualsContainer">
+      <h3 className="ritualsHeading">Rituals</h3>
+      <button className="addRitualButton" onClick={() => setIsAddingRitual(true)}>Add Ritual</button>
+      {isAddingRitual && (
+        <div className="modal">
+          <h4 className="modalTitle">Add a New Ritual</h4>
+          <input 
+            type="text" 
+            className="ritualInput" 
+            value={newRitual} 
+            onChange={handleNewRitualChange} 
+            placeholder="Type your ritual here!" 
+          />
+          <span className="ritualPrivacyText">{isPublic ? "This ritual is public" : "This ritual is private"}</span>
+          <button className="togglePrivacyButton" onClick={() => setIsPublic(!isPublic)}>
             {isPublic ? "Make Private" : "Make Public"}
-        </button>
-        <button onClick={addRitual}>Save</button>
-        <button onClick={() => setIsAddingRitual(false)}>Cancel</button>
-    </div>
-    )}
-
-    <ul>
+          </button>
+          <button className="saveRitualButton" onClick={addRitual}>Save</button>
+          <button className="cancelButton" onClick={() => setIsAddingRitual(false)}>Cancel</button>
+        </div>
+      )}
+  
+      <ul className="ritualsList">
         {rituals.map((ritual, index) => (
-        <li key={index} className={ritual.completed ? "completed" : ""}>
+          <li key={index} className={`ritualItem ${ritual.completed ? "completed" : ""}`}>
             {editRitualIndex === index ? (
-            <>
-            <input type="text" value={editRitualValue} onChange={(e) => setEditRitualValue(e.target.value)} />
-            <button onClick={saveEditedRitual}>Save</button>
-            <button onClick={cancelEditRitual}>Cancel</button>
-            <button onClick={() => removeRitual(index)}>Remove</button>
-            </>
+              <>
+                <input 
+                  type="text" 
+                  className="ritualInput" 
+                  value={editRitualValue} 
+                  onChange={(e) => setEditRitualValue(e.target.value)} 
+                />
+                <button className="saveEditButton" onClick={saveEditedRitual}>Save</button>
+                <button className="cancelEditButton" onClick={cancelEditRitual}>Cancel</button>
+                <button className="removeButton" onClick={() => removeRitual(index)}>Remove</button>
+              </>
             ) : (
-            <>
-            <span className={ritual.completed ? "completed" : ""}>{ritual.content}</span>
-            <button onClick={() => startEditingRitual(index)}>Edit</button>
-            <button onClick={() => toggleComplete(index)}>
-                {ritual.completed ? "Incomplete" : "Complete"}
-            </button>
-            <button onClick={() => removeRitual(index)}>Remove</button>        
-            </>
+              <>
+                <span className={`ritualContent ${ritual.completed ? "completed" : ""}`}>{ritual.content}</span>
+                <button className="editButton" onClick={() => startEditingRitual(index)}>Edit</button>
+                <button className="toggleCompleteButton" onClick={() => toggleComplete(index)}>
+                  {ritual.completed ? "Incomplete" : "Complete"}
+                </button>
+                <button className="removeButton" onClick={() => removeRitual(index)}>Remove</button>        
+              </>
             )}
-        </li>
+          </li>
         ))}
-    </ul>
-    </>
+      </ul>
+    </div>
+  </>
+  
 }

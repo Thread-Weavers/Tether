@@ -5,6 +5,11 @@ import { getUser } from "../adapters/user-adapter";
 import { logUserOut } from "../adapters/auth-adapter";
 import SiteHeadingAndNav from '../components/SiteHeadingAndNav';
 import UpdateUsernameForm from "../components/UpdateUsernameForm";
+import Bio from "../components/Bio";
+import Goals from "../components/Goals";
+import Reminders from "../components/Reminders";
+import Rituals from "../components/Rituals";
+import "../styles/profile.css"
 
 export default function UserPage() {
   const navigate = useNavigate();
@@ -40,13 +45,21 @@ export default function UserPage() {
 
   return <>
   <SiteHeadingAndNav />
+  <div className="profileContainer">
     <h1>{profileUsername}</h1>
-    {!!isCurrentUserProfile && <button onClick={handleLogout}>Log Out</button>}
-    <p>If the user had any data, here it would be</p>
-    <p>Fake Bio or something</p>
+    <div className="usernameForm">
     {
       !!isCurrentUserProfile
       && <UpdateUsernameForm currentUser={currentUser} setCurrentUser={setCurrentUser} />
     }
+    </div>
+    {!!isCurrentUserProfile && <button onClick={handleLogout}>Log Out</button>}
+    <Bio className="profileSection" />
+    <div className="listItems">
+      <Goals className="profileSection" />
+      <Reminders className="profileSection" />
+      <Rituals className="profileSection" />
+    </div>
+  </div>
   </>;
 }
