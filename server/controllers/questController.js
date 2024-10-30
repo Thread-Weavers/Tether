@@ -3,8 +3,8 @@ const Quest = require('../models/Quest');
 const User = require('../models/User');
 
 exports.saveData = async (req, res) => {
-    const answers = req.body;
-    const userId = req.session.userId;
+    console.log(req.body);
+    const {answers, userId} = req.body;
   
     if (!isAuthorized(userId, req.session)) return res.sendStatus(403);
   

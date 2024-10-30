@@ -123,7 +123,7 @@ const Questionnaire = () => {
 
   // Form submission
   const handleSubmit = async () => {
-    const response = submitQuest(answers);
+    const response = submitQuest(answers, currentUser.id);
     if (response) {
       alert('Your answers have been submitted!');
       navigate(`/users/${currentUser.id}`);

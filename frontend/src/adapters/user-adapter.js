@@ -28,7 +28,7 @@ export const findTether = async (id) => {
   return fetchHandler(`${baseUrl}/${id}/tethering`, getPatchOptions());
 }
 
-export const submitQuest = async (answers) => {
+export const submitQuest = async (answers, id) => {
   console.log(answers);
-  return fetchHandler('api/questionnaire', getPostOptions(answers));
+  return fetchHandler('api/questionnaire', getPostOptions({answers: answers, userId: id}));
 }
