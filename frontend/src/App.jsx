@@ -17,12 +17,12 @@ import io from 'socket.io-client';
 export default function App() {
   const { setCurrentUser } = useContext(UserContext);
   const { setWebSocket } = useContext(WebSocketContext);
-  
+
   useEffect(() => {
     const setup = async () => {
       const user = await checkForLoggedInUser();
       setCurrentUser(user);
-      const socket = io.connect("http://localhost:5432/");
+      const socket = io.connect('dpg-csh3ln3tq21c73e2s0i0-a:5432');
       socket.emit('user', user.id);
       setWebSocket(socket);
     }

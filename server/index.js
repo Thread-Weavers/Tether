@@ -50,6 +50,7 @@ app.get('*', (req, res, next) => {
 
 
 io.on("connection", (socket) => {
+  // console.log('someone connected');
   let user_id = null;
   socket.on('user', (userId) => {
     user_id = userId;
@@ -62,6 +63,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on('chat message', (msg, sender) => {
+    // console.log('someone messaged');
     io.emit('chat message', msg, sender);
   });
 })
