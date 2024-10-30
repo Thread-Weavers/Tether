@@ -10,7 +10,9 @@
 
 .homeDiv {
   text-align: center;
-  padding: 2rem;
+  padding-left: 10rem;
+  padding-right: 10rem;
+  padding-bottom: 3rem;
   max-width: 400px;
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
   border-radius: 8px;
@@ -18,9 +20,10 @@
 }
 
 .homeTitle {
-  font-family: 'MaryGoods', sans-serif;
-  font-size: 3rem;
+  font-size: 4rem;
   margin-bottom: 0.5rem;
+  -webkit-font-smoothing: antialiased; 
+  -moz-osx-font-smoothing: grayscale; 
 }
 
 .homeSubtitle {

@@ -1,17 +1,29 @@
-
 @font-face {
   font-family: 'MaryGoods';
   src: url('../../fonts/MaryGoodsPersonalUse-Yq3Rj.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'ColomboSans';
+  src: url('../../fonts/Colombo\ Sans\ Font.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LeagueSpartan';
+  src: url('../../fonts/league-spartan.bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 body {
-   background: rgb(183, 170, 178);
-   margin: 0;
-   /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; */
-   font-family: 'MaryGoods', sans-serif;
-   font-weight: 10;
+  background: rgb(184, 178, 154);
+  margin: 0;
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; */
+  font-family: 'LeagueSpartan', sans-serif;
+  -webkit-font-smoothing: antialiased; 
+  -moz-osx-font-smoothing: grayscale; 
 }
 
 header {

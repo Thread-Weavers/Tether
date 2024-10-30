@@ -5,8 +5,8 @@ export default function HomePage() {
   return (
     <div className="homeContainer">
       <div className="homeDiv">
-        <h1 className="homeTitle">Tether</h1>
-        <p className="homeSubtitle">Support within reach.</p>
+        <h1 className="homeTitle">TETHER</h1>
+        <p className="homeSubtitle">Stronger Bonds, link by link</p>
         <div className="accountButtons">
           <li><NavLink to="/login" className="button">Login</NavLink></li>
           <li><NavLink to="/sign-up" className="button">Sign Up</NavLink></li>
