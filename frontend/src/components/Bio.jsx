@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import CurrentUserContext from "../contexts/current-user-context";
 import { updateUser } from "../adapters/user-adapter";
+import styles from '../styles/profile.module.css';
 
 export default function Bio() {
     const { currentUser } = useContext(CurrentUserContext); // Current User
@@ -25,21 +26,21 @@ export default function Bio() {
     };
 
     return <>
-  <div className="bioContainer">
-    <h2>{currentUser?.username}</h2>
-    <p className="bioText">{bio}</p>
-    <button className="editButton" onClick={() => setIsEditingBio(true)}>Edit</button>
+  <div className={styles.bioContainer}>
+    <h2>{currentUser?.username}'s bio</h2>
+    <p className={styles.bioText}>{bio}</p>
+    <button className={styles.editButton} onClick={() => setIsEditingBio(true)}>Edit</button>
     {isEditingBio && (
-      <div className="editModal">
+      <div className={styles.editModal}>
         <textarea 
-          className="bioTextarea" 
+          className={styles.bioTextarea} 
           value={bioValue} 
           onChange={(e) => setBioValue(e.target.value)} 
           placeholder="Type your new bio here!!!"
         />
-        <div className="modalButtons">
-          <button className="saveButton" onClick={updateBio}>Save</button>
-          <button className="cancelButton" onClick={() => {setBioValue(bio); setIsEditingBio(false)}}>Cancel</button>
+        <div className={styles.modalButtons}>
+          <button className={styles.saveButton} onClick={updateBio}>Save</button>
+          <button className={styles.cancelButton} onClick={() => {setBioValue(bio); setIsEditingBio(false)}}>Cancel</button>
         </div>
       </div>
     )}

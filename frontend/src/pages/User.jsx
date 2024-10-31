@@ -9,7 +9,7 @@ import Bio from "../components/Bio";
 import Goals from "../components/Goals";
 import Reminders from "../components/Reminders";
 import Rituals from "../components/Rituals";
-import "../styles/profile.css"
+import styles from '../styles/profile.module.css';
 
 export default function UserPage() {
   const navigate = useNavigate();
@@ -45,21 +45,23 @@ export default function UserPage() {
 
   return <>
   <SiteHeadingAndNav />
-  <div className="profileContainer">
-    <h1>{profileUsername}</h1>
-    <div className="usernameForm">
-    {
-      !!isCurrentUserProfile
-      && <UpdateUsernameForm currentUser={currentUser} setCurrentUser={setCurrentUser} />
-    }
+    <div className={styles.profileSection}>
+      <div className={styles.profileContainer}>
+        <h1>Welcome, {profileUsername}!</h1>
+        <div className={styles.usernameForm}>
+        {
+          !!isCurrentUserProfile
+          && <UpdateUsernameForm currentUser={currentUser} setCurrentUser={setCurrentUser} />
+        }
+        </div>
+        {!!isCurrentUserProfile && <button onClick={handleLogout}>Log Out</button>}
+      </div>
+      <Bio className={styles.bioContainer} />
     </div>
-    {!!isCurrentUserProfile && <button onClick={handleLogout}>Log Out</button>}
-    <Bio className="profileSection" />
-    <div className="listItems">
-      <Goals className="profileSection" />
-      <Reminders className="profileSection" />
-      <Rituals className="profileSection" />
+    <div className={styles.listItems}>
+      <Goals className={styles.profileSection} />
+      <Reminders className={styles.profileSection} />
+      <Rituals className={styles.profileSection}/>
     </div>
-  </div>
   </>;
 }

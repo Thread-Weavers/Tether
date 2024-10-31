@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import CurrentUserContext from "../contexts/current-user-context";
 import { submitQuest } from "../adapters/user-adapter";
+import "../styles/questionnaire.css";
 
 const Questionnaire = () => {
   const navigate = useNavigate();

@@ -1,48 +1,76 @@
-.chatroom {
+/* Main container styling */
+#messages {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 20rem;
+    width: 80%;
+    max-width: 400px;
+    max-height: 60vh;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    list-style: none;
     display: flex;
     flex-direction: column;
-    max-width: 600px; /* Width of the chatroom */
-    margin: 50px auto; /* Centering the chatroom with margin */
-    border: 1px solid #ccc;
+    gap: 10px;
+  }
+  
+  /* Message styling */
+  #messages li[data-sender="me"] {
+    text-align: right;
+    background-color: #d1e7ff;
+    padding: 8px 12px;
     border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    background-color: #874ba1; /* White background for chatroom */
-}
-
-.messages {
-    list-style: none;
-    padding: 10px;
-    margin: 0;
-    height: 400px; /* Fixed height for scrolling */
-    overflow-y: auto; /* Enables scrolling */
-    border-bottom: 1px solid #ccc; /* Separator between messages and input */
-}
-
-.message {
-    margin: 10px 0;
-    padding: 10px 15px;
-    border-radius: 12px;
-    position: relative; /* Needed for the arrow positioning */
-    max-width: 80%; /* Limits the width of the messages */
-}
-
-.message.me {
-    background-color: #32a772; /* Light green for user's messages */
-    margin-left: auto; /* Align to right */
-    border: 1px solid #c3e6cb; /* Border for user message */
-}
-
-.message.other {
-    background-color: #8b212a; /* Light red for others' messages */
-    margin-right: auto; /* Align to left */
-    border: 1px solid #f5c6cb; /* Border for other messages */
-}
-
-.sender {
-    font-weight: bold; /* Make sender name bold */
-}
-
-.chat-form {
+    align-self: flex-end;
+    color: #0056b3;
+  }
+  
+  #messages li[data-sender="other"] {
+    text-align: left;
+    background-color: #e2e2e2;
+    padding: 8px 12px;
+    border-radius: 8px;
+    align-self: flex-start;
+    color: #333;
+  }
+  
+  /* Form styling */
+  #form {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 400px;
     display: flex;
-    justify-content: center; 
-}
+    gap: 10px;
+  }
+  
+  /* Input box styling */
+  #input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+  
+  /* Send button styling */
+  #form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4a90e2;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #form button:hover {
+    background-color: #357ab8;
+  }
+  
