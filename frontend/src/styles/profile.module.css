@@ -1,0 +1,90 @@
+.profileContainer {
+  border-radius: 10px;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 40rem;
+  align-items: center;
+  background: #543E7D;
+  color: #ffffff;
+}
+
+.profileSection {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem;
+
+}
+button {
+  padding: 0.5rem 1rem;
+  background-color: #ffffff;
+  color: #2c3e50;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+button:hover {
+  background-color: #874ba1;
+  color: #ffffff;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  width: 15rem; /* Width for forms */
+}
+
+.usernameForm {
+  width: 35rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(180deg, #9e64b0, #bd5f97);
+  border-radius: 20px;
+  margin-bottom: 1vh;
+}
+
+/* Bio Component Styles */
+.bioContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40rem;
+  background: #543E7D;/* Light background for visibility */
+  border-radius: 10px;
+  text-align: center; /* Center text */
+}
+.bioContainer h2 {
+  color: white;
+}
+.bioText {
+  font-size: 1.2rem; /* Slightly larger text for readability */
+  margin-bottom: 1rem; /* Space below the text */
+  color: white;
+  transform: translateY(-1rem);
+}
+
+.editButton {
+  padding: 0.5rem 1rem;
+  background-color: #ffffff; /* Button background color */
+  color: #874ba1;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.editButton:hover {
+  background-color: #b1b5b8; /* Darker shade on hover */
+}
+
+.listItems {
+
+}

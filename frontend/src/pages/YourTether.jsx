@@ -10,15 +10,16 @@ import FindTetherButton from "../components/FindTetherButton";
 import PartnerGoalsList from "../components/PartnerGoalsList";
 import PartnerRemindersList from "../components/PartnerRemindersList";
 import PartnerRitualsList from "../components/PartnerRitualsList";
-import "../styles/yourtether.css"
+import styles from '../styles/yourtether.module.css';
+// import styles from '../styles/profile.module.css';
 
 export default function YourTetherPage() {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   return <>
   <SiteHeadingAndNav />
-  <div className="tetherContainer">
-    <div className="tetherBlock">
+  <div className={styles.tetherContainer}>
+    <div className={styles.tetherBlock}>
       <Bio />
       <GoalsList />
       <RemindersList />
@@ -29,7 +30,7 @@ export default function YourTetherPage() {
         <FindTetherButton />
     ) : (
     <>
-      <div className="tetherBlock">
+      <div className={styles.tetherBlock}>
         <BioTether />
         <PartnerGoalsList />
         <PartnerRemindersList />

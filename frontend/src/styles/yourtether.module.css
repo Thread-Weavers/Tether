@@ -1,0 +1,33 @@
+.tetherContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.bioContainer{
+    color: red;
+}
+
+.tetherBlock {
+    display: flex;
+    flex-direction: column;
+
+    color: white;
+    width: 40rem;
+    background: #543E7D;
+    padding: 4vh;
+    border-radius: 20px;
+    margin: 5vh;
+}
+
+/* .findTether {
+    transform: translateX(4rem);
+} */
+
+.tetherBlock h3 {
+    background-color: rgb(55, 23, 71);
+    padding: 2px;
+    padding-top: 5px;
+    padding-left: 10px;
+    border-radius: 5px;
+}

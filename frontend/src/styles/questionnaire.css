@@ -1,0 +1,82 @@
+/* Container styling */
+.questionnaire-page h1{
+    display: flex;
+    justify-content: center;
+    transform: translateY(4rem);
+    color: white;
+}
+
+.questionnaire-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(6rem);
+  }
+  
+/* Question styling */
+.questionnaire-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+/* Options container */
+.options-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+}
+
+/* Option styling */
+.option {
+    padding: 12px 16px;
+    background-color: #e0e0e0;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+/* Selected option */
+.option.selected {
+    background-color: #3d1a75;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Option hover effect */
+.option:hover {
+    background-color: #c0c0c0;
+}
+
+/* Button styling */
+.prev-button,
+.submit-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #892dc6;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.prev-button:hover,
+.submit-button:hover {
+    background-color: #521978;
+}
+
+/* Submit button */
+.submit-button {
+    margin-top: 20px;
+    font-size: 1rem;
+}
