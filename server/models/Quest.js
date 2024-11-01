@@ -7,8 +7,9 @@ class Quest {
   // static methods to hide the hashed password of users before sending user data 
   // to the client. Since we want to keep the #passwordHash property private, we 
   // provide the isValidPassword instance method as a way to indirectly access it.
-  constructor({ id, first_answer, second_answer, third_answer, fourth_answer, fifth_answer, sixth_answer, seventh_answer, eighth_answer, ninth_answer, tenth_answer}) {
+  constructor({ id, user_id, first_answer, second_answer, third_answer, fourth_answer, fifth_answer, sixth_answer, seventh_answer, eighth_answer, ninth_answer, tenth_answer}) {
     this.id = id;
+    this.user_id = user_id;
     this.first_answer = first_answer;
     this.second_answer = second_answer;
     this.third_answer = third_answer;
@@ -37,10 +38,10 @@ class Quest {
     return rawQuestData ? new Quest(rawQuestData) : null;
   }
 
-  static async create(first_answer, second_answer, third_answer, fourth_answer, fifth_answer, sixth_answer, seventh_answer, eighth_answer, ninth_answer, tenth_answer) {
-    const query = `INSERT INTO questionnaire_data (first_answer, second_answer, third_answer, fourth_answer, fifth_answer, sixth_answer, seventh_answer, eighth_answer, ninth_answer, tenth_answer)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING *`;
-    const result = await knex.raw(query, [first_answer, second_answer, third_answer, fourth_answer, fifth_answer, sixth_answer, seventh_answer, eighth_answer, ninth_answer, tenth_answer]);
+  static async create(user_id, first_answer, second_answer, third_answer, fourth_answer, fifth_answer, sixth_answer, seventh_answer, eighth_answer, ninth_answer, tenth_answer) {
+    const query = `INSERT INTO questionnaire_data (user_id, first_answer, second_answer, third_answer, fourth_answer, fifth_answer, sixth_answer, seventh_answer, eighth_answer, ninth_answer, tenth_answer)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING *`;
+    const result = await knex.raw(query, [user_id, first_answer, second_answer, third_answer, fourth_answer, fifth_answer, sixth_answer, seventh_answer, eighth_answer, ninth_answer, tenth_answer]);
     const rawQuestData = result.rows[0];
     return new Quest(rawQuestData);
   }
