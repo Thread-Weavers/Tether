@@ -2,6 +2,10 @@
 
 Our application seeks to enhance mental health support by creating a safe, anonymous platform that connects individuals facing similar challenges. By pairing users with accountability partners, we empower them to stay committed to their mental health routines while fostering meaningful connections to combat feelings of isolation. This platform encourages open dialogue and mutual understanding, enabling users to share their experiences, celebrate progress, and access a supportive community without the pressure of formal therapy. Ultimately, our mission is to enhance well-being and resilience among users, providing them with the tools they need to navigate their mental health journeys collaboratively.
 
+# LINK
+
+https://tether-xd0d.onrender.com/
+
 ## Team
 
   - __Product Owner__: Ryan Ramirez
