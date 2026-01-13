@@ -9,6 +9,11 @@ Tether is a mental health accountability platform built to help users feel less 
 
 ---
 
+## 🔗 Video
+**[Demo](https://www.youtube.com/watch?v=NuARFIK1Q-Q)**
+
+---
+
 ## 👥 Team
 
 - **Product Owner:** Ryan Ramirez  
